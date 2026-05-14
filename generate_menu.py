@@ -16,7 +16,6 @@ def extract_html_info(file_path):
         pure_text = re.sub(r'<[^>]+>', ' ', content)
         pure_text = re.sub(r'\s+', ' ', pure_text).strip()
         
-        # 截取前 300 个字作为搜索索引
         keywords = pure_text[:300].replace('"', '&quot;') 
         
         return title, keywords

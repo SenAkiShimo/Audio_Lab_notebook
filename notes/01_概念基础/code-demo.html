@@ -7,13 +7,7 @@
 
     <title>Code Demo</title>
 
-    <!-- Prism 代码高亮主题 -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
-    >
-
-    <!-- 你自己的样式 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -22,7 +16,7 @@
     <!-- 卡片 1：Python 信号处理 -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">🐍 Python 提取音频特征（梅尔频谱）</h3>
+            <h3 class="card-title">Python 提取音频特征（梅尔频谱）</h3>
             <span class="tag">Python</span>
         </div>
         <div class="card-body">
@@ -49,10 +43,8 @@ print("梅尔频谱矩阵形状:", mel_spec.shape)</code></pre>
 >>> 特征提取成功，耗时 0.12 秒。</pre>
             </div>
 
-            <!-- 📊 图表结果框 -->
             <div class="result-image-box">
-                <p>📊 Matplotlib 渲染出的图形结果：</p>
-                <!-- 这里你可以换成你自己跑出来的频谱图片路径 -->
+                <p>Matplotlib 渲染出的图形结果：</p>
                 <img src="unsplash.com" alt="频谱图测试占位" style="max-height: 200px; object-fit: cover;">
             </div>
         </div>
@@ -88,18 +80,16 @@ void processFrame(const std::vector&lt;float&gt;&amp; signal, int frameLen, int 
         </div>
     </div>
 
-    <!-- 卡片 3：Matlab 仿真 -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">📐 Matlab 快速傅里叶变换 (FFT)</h3>
+            <h3 class="card-title">Matlab 快速傅里叶变换 (FFT)</h3>
             <span class="tag">Matlab</span>
         </div>
         <div class="card-body">
             <p>使用 Matlab 分析声音信号的频谱分布：</p>
             
-            <!-- 关键点：class="language-matlab" -->
             <div class="code-block-container">
-                <button class="btn-copy">📋 复制</button>
+                <button class="btn-copy">复制</button>
                 <pre><code class="language-matlab">[y, Fs] = audioread('speech.wav'); % 读取音频
 N = length(y);
 Y = fft(y); % 快速傅里叶变换
