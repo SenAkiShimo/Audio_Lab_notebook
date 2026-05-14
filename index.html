@@ -22,16 +22,35 @@
         <div class="category-menu">
 <!-- MENU_START -->
             <div class="category-item">
-                <div class="category-title">📂 01_概念基础</div>
+                <div class="category-title">📂 01_信号与工程基础</div>
                 <ul class="nav-links">
-                    <li><a href="notes/01_概念基础/code-demo.html" target="content-frame" data-keywords="" class="active">code-demo</a></li>
-                    <li><a href="notes/01_概念基础/robustness.html" target="content-frame" data-keywords="">robustness</a></li>
+                    <li><a href="notes/01_信号与工程基础/robustness.html" target="content-frame" data-keywords="语音鲁棒性全面解析 一、 鲁棒性的科学定义与核心本质 底层概念 鲁棒性（Robustness） 源自英文 Robust（强壮、健壮），在控制论和计算机科学中，指的是系统在面对 参数扰动、未建模动态、非预期输入或恶劣环境干扰 时，维持其原有功能和性能指标不发生崩溃的能力。 核心本质： 系统判定边界的模糊容错能力与抗过拟合能力。一个具有高鲁棒性的 AI 模型，其决策超平面（Decision Hyperplane）不会因为输入信号发生微小的方差改变而产生剧烈的分类偏移。 二、 AI 语音（ASR / TTS / VC）面对的鲁棒性挑战 领域痛点 在语音信号处理中，外界干扰会直接污染声学特征（如梅尔频" class="active">语音鲁棒性全面解析</a></li>
+                    <li><a href="notes/01_信号与工程基础/sampling.html" target="content-frame" data-keywords="音频采样率与位深底层机制解析 一、 采样率（Sampling Rate）与时间轴色散 时域离散化 声音在物理世界中是连续的模拟信号（Analog Signal）。计算机无法直接存储连续函数，必须通过模数转换器（ADC）在等间隔的时间点上对信号幅度进行提取，这一过程称为 采样（Sampling） 。 采样率（Fs） 定义为每秒钟提取样本点的数量，单位为赫兹（Hz）。采样率的高低直接决定了数字信号在时间轴上的分辨率。 奈奎斯特-香农采样定理（Nyquist-Shannon Sampling Theorem）： 为了不失真地恢复连续模拟信号，采样率（Fs）必须大于信号最高频率成分（Fmax）的两倍。">音频采样率与位深底层机制解析</a></li>
                 </ul>
             </div>
             <div class="category-item">
-                <div class="category-title">📂 02_音频基础</div>
+                <div class="category-title">📂 02_时频域前处理与特征提取</div>
                 <ul class="nav-links">
-                    <li><a href="notes/02_音频基础/sampling.html" target="content-frame" data-keywords="">sampling</a></li>
+                </ul>
+            </div>
+            <div class="category-item">
+                <div class="category-title">📂 03_语音识别与交互（ASR_KWS）</div>
+                <ul class="nav-links">
+                </ul>
+            </div>
+            <div class="category-item">
+                <div class="category-title">📂 04_语音合成与音色克隆（TTS_VC</div>
+                <ul class="nav-links">
+                </ul>
+            </div>
+            <div class="category-item">
+                <div class="category-title">📂 05_语音大模型与多模态（Speech_LLM）</div>
+                <ul class="nav-links">
+                </ul>
+            </div>
+            <div class="category-item">
+                <div class="category-title">📂 06_工程落地与质量评估</div>
+                <ul class="nav-links">
                 </ul>
             </div>
             <!-- MENU_END -->
@@ -39,7 +58,7 @@
     </nav>
 
     <main class="main-container">
-        <iframe name="content-frame" id="content-frame" src="notes/01_概念基础/code-demo.html" frameborder="0"></iframe>
+        <iframe name="content-frame" id="content-frame" src="notes/01_信号与工程基础/robustness.html" frameborder="0"></iframe>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
