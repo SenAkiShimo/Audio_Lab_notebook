@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Code Demo</title>
+
+    <!-- Prism 代码高亮主题 -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+    >
+
+    <!-- 你自己的样式 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="sub-page">
+
+    <!-- 卡片 1：Python 信号处理 -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">🐍 Python 提取音频特征（梅尔频谱）</h3>
+            <span class="tag">Python</span>
+        </div>
+        <div class="card-body">
+            <p>使用 <code>librosa</code> 库可以极快地加载音频并提取声学特征：</p>
+            
+            <!-- 关键点：class="language-python" 声明语言 -->
+            <div class="code-block-container">
+                <button class="btn-copy">📋 复制</button>
+                <pre><code class="language-python">import librosa
+import librosa.display
+
+# 1. 加载音频（强制指定 16kHz 采样率）
+y, sr = librosa.load('test.wav', sr=16000)
+
+# 2. 计算梅尔频谱
+mel_spec = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=80)
+print("梅尔频谱矩阵形状:", mel_spec.shape)</code></pre>
+            </div>
+
+            <!-- 📟 打印结果控制台 -->
+            <div class="terminal-box">
+                <span class="output-title">📟 Terminal Output:</span>
+                <pre>>>> 梅尔频谱矩阵形状: (80, 431)
+>>> 特征提取成功，耗时 0.12 秒。</pre>
+            </div>
+
+            <!-- 📊 图表结果框 -->
+            <div class="result-image-box">
+                <p>📊 Matplotlib 渲染出的图形结果：</p>
+                <!-- 这里你可以换成你自己跑出来的频谱图片路径 -->
+                <img src="unsplash.com" alt="频谱图测试占位" style="max-height: 200px; object-fit: cover;">
+            </div>
+        </div>
+    </div>
+
+    <!-- 卡片 2：C++ 音频分帧 -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">⚙️ C++ 语音信号分帧算法</h3>
+            <span class="tag">C++</span>
+        </div>
+        <div class="card-body">
+            <p>在底层算法部署时，通常用 C++ 实现高效的指针移动分帧：</p>
+            
+            <!-- 关键点：class="language-cpp" -->
+            <div class="code-block-container">
+                <button class="btn-copy">📋 复制</button>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+void processFrame(const std::vector&lt;float&gt;&amp; signal, int frameLen, int hopLen) {
+    int totalSamples = signal.size();
+    for (int i = 0; i + frameLen &lt;= totalSamples; i += hopLen) {
+        // 指针滑窗处理当前音频帧
+        float energy = 0.0;
+        for (int j = 0; j &lt; frameLen; ++j) {
+            energy += signal[i + j] * signal[i + j];
+        }
+    }
+    std::cout << "C++ Audio Framing Done!" << std::endl;
+}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- 卡片 3：Matlab 仿真 -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">📐 Matlab 快速傅里叶变换 (FFT)</h3>
+            <span class="tag">Matlab</span>
+        </div>
+        <div class="card-body">
+            <p>使用 Matlab 分析声音信号的频谱分布：</p>
+            
+            <!-- 关键点：class="language-matlab" -->
+            <div class="code-block-container">
+                <button class="btn-copy">📋 复制</button>
+                <pre><code class="language-matlab">[y, Fs] = audioread('speech.wav'); % 读取音频
+N = length(y);
+Y = fft(y); % 快速傅里叶变换
+P2 = abs(Y/N);
+P1 = P2(1:N/2+1);
+f = Fs*(0:(N/2))/N;
+plot(f, P1); % 绘制频谱图</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prism 核心 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+    <!-- Python -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+    <!-- C -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+
+    <!-- C++ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+
+    <!-- Matlab -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-matlab.min.js"></script>
+
+</body>
+</html>

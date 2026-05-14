@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI语音基础知识笔记本</title>
+    <link rel="stylesheet" href="cloudflare.com">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2>语音知识库</h2>
+            <button id="theme-toggle" class="btn-toggle">🌗</button>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="搜索知识点(系统会自动匹配网页内容)...">
+        </div>
+
+        <!-- 目录分类：由 Python 脚本自动管理 -->
+        <div class="category-menu">
+<!-- MENU_START -->
+            <div class="category-item">
+                <div class="category-title">📂 01_概念基础</div>
+                <ul class="nav-links">
+                    <li><a href="notes/01_概念基础/code-demo.html" target="content-frame" data-keywords="" class="active">code-demo</a></li>
+                    <li><a href="notes/01_概念基础/robustness.html" target="content-frame" data-keywords="">robustness</a></li>
+                </ul>
+            </div>
+            <div class="category-item">
+                <div class="category-title">📂 02_音频基础</div>
+                <ul class="nav-links">
+                    <li><a href="notes/02_音频基础/sampling.html" target="content-frame" data-keywords="">sampling</a></li>
+                </ul>
+            </div>
+            <!-- MENU_END -->
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="main-container">
+        <!-- 默认加载源 -->
+        <iframe name="content-frame" id="content-frame" src="notes/01_概念基础/code-demo.html" frameborder="0"></iframe>
+    </main>
+
+    <!-- Prism 核心 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+    <!-- 语言支持 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-matlab.min.js"></script>
+
+    <!-- 你的业务脚本 -->
+    <script src="script.js"></script>
+</body>
+</html>
