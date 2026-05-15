@@ -107,5 +107,33 @@ convert_to_model_standard_wav("compressed_record.m4a", "notes_ready.wav")</code>
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 C++ 结构体物理内存对齐的 WAV 固定头 44字节流式解析</h3>
+            <span class="tag">C++ Core Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 彻底剥离高层封装。利用 C++ 的 <code>#pragma pack(1)</code> 指令强制取消编译器内存对齐补零，完全还原 RIFF 协议头中的 12 个核心 Chunk 元数据物理分布标志。该算子以二进制裸流形式切开文件前 44 字节，零内存拷贝秒级抓取采样率和位深，用作高并发云端模型输入规范的前置刚性拦截。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/02_formats/parse_wav_header.cpp" target="_blank" class="btn-view-source">查看 C++ 二进制文件头流式解析器源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 基于 Python struct 算子的小端字节序连续矩阵打包与流式压缩</h3>
+            <span class="tag">Python Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 模拟深度学习语音模型输出向硬件播放器的解调过渡。将神经网络生成的 Float32 稠密振幅序列进行线性量化缩放，投影至有符号 <code>int16</code> 的二进制振幅格点内。利用底层 <code>struct.pack</code> 算子将其组装为小端（Little-Endian）二进制 PCM 裸流。在维持信息无损的前提下，将内存网络传输开销强行腰斩收缩 50%。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/02_formats/audio_transcode.py" target="_blank" class="btn-view-source">查看 Python 特征矩阵二进制打包算法源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
