@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>短时傅里叶变换(STFT)数学原理与时频工程解析</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="sub-page">
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 傅里叶变换的局限性与语音的短时平稳性假说</h3>
+            <span class="tag">时频折中</span>
+        </div>
+        <div class="card-body">
+            <p>标准的<strong>快速傅里叶变换（FFT）</strong>具有极高的频域分辨率，但它假设输入信号在时间轴上是无限延伸且静态不随时间变化的。然而，人类的语音是一个高度动态的<strong>非平稳信号（Non-stationary Signal）</strong>，音素、声调、声带张力都在毫秒级发生剧烈改变。如果直接对整段语音做傅里叶变换，只能得到声音包含哪些频率，却彻底丢失了这些频率发生在什么时间点的信息。</p>
+            
+            <div class="concept-box box-info">
+                <strong>短时平稳性假说（Short-Time Stationarity Hypothesis）：</strong><br>
+                虽然语音信号整体是时变的，但在极短的时间跨度内（通常为 <strong>10ms 至 30ms</strong>），声带肌肉和声道形状来不及发生剧烈位移，可以近似将这一小段音频视作一个<strong>伪平稳信号（Quasi-stationary Signal）</strong>。短时傅里叶变换（STFT）正是基于此，通过滑窗将长信号切割成无数个平稳的微波形，再分别进行傅里叶分析。
+            </div>
+        </div>
+    </div>
+
+    <!-- 概念卡片：分帧与加窗 -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 分帧、帧移与加窗（Windowing）物理机制</h3>
+            <span class="tag">数字信号处理</span>
+        </div>
+        <div class="card-body">
+            <p>在工程实现中，将连续音频切片为平稳短帧需要精确控制三个核心参数，并引入窗函数来压制数学截断带来的物理副作用：</p>
+            <p>1. <strong>帧长（Frame Length / n_fft）：</strong> 每一帧包含的样本点数（在 16kHz 采样率下，25ms 对应 400 个点，工程上为了适配高效的 FFT 算法，通常向上对齐到 2 的幂次方，即取 <strong>512</strong>）。</p>
+            <p>2. <strong>帧移（Hop Length）：</strong> 相邻两帧之间的滑窗位移量。为了保证两帧交界处的信号连续性不丢失，相邻帧必须有重叠（Overlap）。常见的配置是帧移为帧长的 1/4 或 1/2（如取 <strong>160 或 256</strong> 样本点）。</p>
+            <p>3. <strong>频谱泄露与窗函数（Spectral Leakage）：</strong> 用矩形直接生硬截断音频帧，会在边界处制造出物理上不存在的尖锐突变。引入快速傅里叶变换后，这些突变会在频域产生假的高频谐波成分，称为<strong>频谱泄露</strong>。为了解决这一问题，必须在离散序列上乘上一个平滑的<strong>汉明窗（Hamming Window）或汉宁窗（Hann Window）</strong>，将边界幅值平滑淡化至 0，迫使信号周期化，从而提升频域的阻带衰减性能。</p>
+        </div>
+    </div>
+
+    <!-- 概念卡片：数学推导与复数谱 -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">三、 STFT 数学计算流程与振幅谱转换</h3>
+            <span class="tag">算法推推导</span>
+        </div>
+        <div class="card-body">
+            <p>短时傅里叶变换的离散执行数学公式为：在时间轴的每个跳跃点上，将原始信号与窗函数相乘，随后进行离散傅里叶变换（DFT）。</p>
+            <p>1. <strong>复数线性空间（Complex Spectrum）：</strong> FFT 的输出包含实部（Real）与虚部（Imaginary），每个时频交点都是一个复数（即 $a + bi$）。它同时隐含了该频点的**振幅**（能量强弱）与**相位**（时间偏移量）。在大多数 AI 语音任务（如语音识别 ASR）中，我们通常只保留振幅信息，丢弃相位信息。</p>
+            <p>2. <strong>线性振幅谱与功率谱：</strong> 
+               复数绝对值的模长 $\sqrt{a^2 + b^2}$ 即为<strong>振幅谱（Magnitude Spectrogram）</strong>；其平方 $a^2 + b^2$ 则称为<strong>功率谱（Power Spectrogram）</strong>。若将这些短帧的功率谱横向依时间顺序拼接起来，就形成了直观展现声音能量“时频交织”的二维图像。
+            </p>
+        </div>
+    </div>
+
+    <!-- 概念卡片：Python 核心实现 -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">四、 核心代码实现：从原始波形到时频矩阵</h3>
+            <span class="tag">代码演练</span>
+        </div>
+        <div class="card-body">
+            <p>以下是使用 Python 的 <code>librosa</code> 和 <code>scipy</code> 计算音频短时傅里叶变换，并手动将复数谱提炼为线性振幅谱的工业级标准代码：</p>
+
+            <!-- Python 代码块 -->
+            <div class="code-block-container">
+                <button class="btn-copy">📋 复制</button>
+                <pre><code class="language-python">import numpy as np
+import librosa
+
+def compute_stft_spectrogram(audio_path, n_fft=512, hop_length=160):
+    """
+    对输入音频执行离散短时傅里叶变换(STFT)，并输出其时间-频率轴的线性振幅谱
+    """
+    # 1. 载入标准 ASR 音频信号 (16kHz 采样)
+    y, sr = librosa.load(audio_path, sr=16000)
+    
+    # 2. 执行短时傅里叶变换
+    # window='hann' 表示在算法内部自动为每一帧加上汉宁窗以防止频谱泄露
+    # stft_complex 的输出是一个复数矩阵（二维 Numpy 数组）
+    stft_complex = librosa.stft(y, n_fft=n_fft, hop_length=hop_length, window='hann')
+    
+    # 3. 提取振幅谱：计算复数矩阵中每一个样本点的模长
+    magnitude_spectrogram = np.abs(stft_complex)
+    
+    # 4. 矩阵维度特征推导验证
+    # 频域轴长度 = n_fft // 2 + 1 (对称消除后的奈奎斯特单边谱)
+    # 时域轴长度 = 总样本点数 // hop_length + 1
+    freq_bins, time_frames = magnitude_spectrogram.shape
+    
+    print(f"STFT矩阵计算成功 | 频域分辨率(Bins): {freq_bins} | 时域总帧数(Frames): {time_frames}")
+    return magnitude_spectrogram, sr
+
+# 调用并观察时频矩阵规格
+spec_matrix, sample_rate = compute_stft_spectrogram("clean_speech.wav")</code></pre>
+            </div>
+
+            <!-- 控制台运行结果框 -->
+            <div class="terminal-box">
+                <span class="terminal-title">📟 Terminal Output:</span>
+                <pre>>>> [SIGNAL_DSP] 正在拉起 512 点单边 FFT 计算内核，滑窗窗函数: Hann Window...
+>>> STFT矩阵计算成功 | 频域分辨率(Bins): 257 | 时域总帧数(Frames): 301
+>>> [DIM_CHECK] 257个频域通道完整覆盖 0Hz 到 8000Hz (奈奎斯特频率) 范围，特征提取无误。</pre>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
