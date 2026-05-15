@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/yang/Desktop/project/notebook/src/15_speech_llm_architecture/causal_attention'
+relocations:     []
+...

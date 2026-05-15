@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "OnnxInferenceRunner",
+            "request": "launch",
+            "mainClass": "OnnxInferenceRunner",
+            "projectName": "notebook_509bfcdc"
+        },
+        {
+            "type": "java",
+            "name": "StreamingIngestionServer",
+            "request": "launch",
+            "mainClass": "StreamingIngestionServer",
+            "projectName": "notebook_509bfcdc"
+        },
+        {
+            "type": "java",
             "name": "SecurityGateway",
             "request": "launch",
             "mainClass": "SecurityGateway",

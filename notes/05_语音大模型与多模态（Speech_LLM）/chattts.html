@@ -182,5 +182,19 @@ codec_tokens_b = chat_tts.generate_speech_tokens(prompt_b, refine_text_flag=True
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 Python(PyTorch) 联合词表空间交叉因果注意力计算与特殊副语言控制符号概率空间有偏修正算子</h3>
+            <span class="tag">Python Generative Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 本算子基于纯 PyTorch 框架，将离散文本序列与多级 RVQ 量化派生出的离散神经 Codec Token 强行焊接到同一个膨胀的词表空间中。自回归生成时，模型通过因果掩码强制实施自左向右的单向递推。当在上下文窗口中扫描到 <code>[laughter]（笑声）</code> 或 <code>[uv_break]（换气）</code> 等控制符号时，多维控制门控会立刻被触发，向解码器最后一帧隐藏层的线性输出端（Logits）精准投递定向偏置能量。强行扭曲并重塑后续音频 Codec Token 的 Softmax 多分类分类分布。强制模型生成高动态颤音谐波或驱使振幅归零进入生理断句期，重构出极具拟真对谈感的高表现力离散声学特征流。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/14_chattts_processing/chattts_autoregressive.py" target="_blank" class="btn-view-source">📂 查看 Python ChatTTS 纯自回归序列与副语言控制算子源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

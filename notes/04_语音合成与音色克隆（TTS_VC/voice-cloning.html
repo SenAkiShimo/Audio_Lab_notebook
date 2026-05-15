@@ -151,5 +151,19 @@ cloned_features = apply_voice_cloning_injection(mock_content, spk_vector)</code>
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 Python(PyTorch) 实例特征洗刷重塑(AdaIN)与 Audio Prompt 离散上下文自回归补全双流派控制算子</h3>
+            <span class="tag">Python AI Pipeline</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 攻克陌生发音人音色在跨领域迁移（OOD Generalization）时的泛化脆弱性死穴。本文件完美闭环了两个时代的天花板级音色调控通路：流派一利用 PyTorch 矩阵张量跨维横向广播算子，纯手写自适应实例归一化（AdaIN）方程。算法强行剥离变长语义序列原生的均值与方差，利用 256 维声纹嵌入特征对中间隐藏层执行均值平移和方差缩放，对波形包络实施物理染色。流派二紧跟前沿多模态大模型范式，彻底洗脱条件偏置项。算法将 3 秒参考音频转化为量子化 Codec 离散 Token，作为硬核“音色提示词”（Audio Prompt）强制拼接钉在自回归上下文序列的最前端。驱使 Transformer 因果注意力矩阵在续写后方新音素特征时，天然捕获并继承提示词链中所隐含的全套换气习惯、共振峰及噪声底色特征。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/12_cloning_processing/voice_clone_core.py" target="_blank" class="btn-view-source">📂 查看 Python 双流派音色克隆核心架构算法源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

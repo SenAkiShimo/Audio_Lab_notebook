@@ -153,5 +153,33 @@ enhanced_stft = run_wiener_filter_denoising(mock_noisy_stft)</code></pre>
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 MATLAB 纯矩阵时频先验信噪比估计与对位复数增益乘加的自适应维纳滤波算子</h3>
+            <span class="tag">MATLAB DSP Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 彻底解决传统粗暴谱减法由于增益剧烈跳变在时域引发的高额刺耳“音乐噪声（Musical Noise）”伪影缺陷。算子在 MATLAB 纯矩阵空间中运行，流式截取输入频谱前 5 帧空白无声期，快速沉淀出当前环境高斯加性噪声的平均基底功率谱。算法基于先验信噪比 $\xi(f,t)$ 动态求解出最优增益因子 $G = \xi / (\xi + 1)$，在保持微观时序相位完全不发生扭曲畸变的前提下，对复数谱阵列执行平滑的一阶振幅能量调幅剪切，实现统计学意义上的全局最小均方误差（MMSE）干净人声清洗。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/18_speech_denoising/wiener_filter.m" target="_blank" class="btn-view-source">📂 查看 MATLAB 时频域自适应维纳滤波降噪算子源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 基于 Python 语音识别字错率相对改善率(WERR)级联结算与全链路业务价值核验流水线</h3>
+            <span class="tag">Python Business Metric</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 科学评估降噪算法在生产环境多模态业务链条中的最终硬核增益红利。在工业落地中，前置降噪不能流于客观分数的自嗨，必须对后端 ASR 的识别率做出确定性贡献。本算子接收多噪集下的崩溃字错率与前置增强清洗后的净化集字错率，通过离散变换公式 $\text{WERR} = (\text{WER}_{\text{noisy}} - \text{WER}_{\text{enhanced}}) / \text{WER}_{\text{noisy}}$，跨模态级联解调出字错率下降相对百分比。以此指标作为整套系统能否在高风险工业语音场景（如车载唤醒、移动通话）上线放行的刚性技术判定盾牌。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/18_speech_denoising/denoise_wer_eval.py" target="_blank" class="btn-view-source">📂 查看 Python ASR-WERR 业务级改善率结算算子源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

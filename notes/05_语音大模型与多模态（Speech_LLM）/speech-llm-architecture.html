@@ -175,5 +175,47 @@ final_hidden_states = simulator.run_multimodal_forward_pipeline(mock_text_embedd
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 Python(PyTorch) 的声学编码特征高维空间两层前馈网络(MLP)非线性对齐映射算子</h3>
+            <span class="tag">Python AI Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 彻底解决声音几何向量与大语言模型文本 Token 特征空间无法兼容的致命伤。算法构建了一个包含可调权重的两层多层感知机（MLP），内部并行内嵌 GELU 高斯误差激活函数。算子接收声学前端编码器输出的 1024 维变长稠密连续张量，执行高效的矩阵线性扩展拉伸，强行将其旋转并对齐投影至大模型核心词表嵌入（Text Embeddings）的同一 4096 维高维隐藏几何超空间内，为后续多模态同质自回归推理提供完备的跨模态输入底片。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/15_speech_llm_architecture/modal_projector.py" target="_blank" class="btn-view-source">📂 查看 Python 跨模态特征高维空间对齐映射层源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 基于 C++ 内存块指针移动的时序因果自注意力(Causal Attention)内核与多模态全双工硬打断控制状态机</h3>
+            <span class="tag">C++ High-Performance Kernel</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 追求大模型核心计算在极端软实时高并发约束下的指令级加速优化。本算子纯手写实现多模态 Decoder-Only 核心计算图。算法利用时序因果掩码（Causal Mask）确保网络在每一步 Next-token 概率推导时严格遵守单向因果约束。更硬核地，网络内部常驻挂载了一个全双工打断（Full-Duplex Interruption）状态机标志位。一旦捕捉到上游硬件级麦克风上传的用户强行插话（能量骤升信号），算子在毫秒级瞬时熔断并中止当前自回归生成树前向计算，向上下文窗口强行注入终止控制 Token <code>&lt;|stop|&gt;</code>，系统一阶倒转，实现极佳的流控对话响应。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/15_speech_llm_architecture/causal_attention.cpp" target="_blank" class="btn-view-source">📂 查看 C++ 高性能因果注意力与全双工硬打断流控源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">三、 基于 Java 并发框架的云端高爆发多线程实时流式音频切片分块吞吐与自适应滑窗合并服务器</h3>
+            <span class="tag">Java Concurrent Server</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 支撑云端大模型服务层面对海量并发流式长连接语音对谈的安全承载。服务器采用多线程固定线程池，完全基于非阻塞多路复用流控逻辑。当数万路客户端麦克风同时以 100ms 离散切片（Chunk-by-Chunk）通过长连接冲入网关时，服务器利用 <code>CompletableFuture</code> 异步高并发吞吐技术进行多任务解耦接收。在内存中维护固定大小为 10 帧的动态特征平移滑动窗口，执行回环淘汰覆写。平滑拼装后向底层 C++ 特征队列实现有序无损输出，构建稳健的大模型数据流接收中枢。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/15_speech_llm_architecture/StreamingIngestionServer.java" target="_blank" class="btn-view-source">📂 查看 Java 云端高并发流式特征吞吐服务器源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

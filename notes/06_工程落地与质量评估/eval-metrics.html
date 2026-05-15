@@ -148,7 +148,6 @@ def calculate_cer_via_dynamic_programming(reference, hypothesis):
     print(f"[METRIC] 真实字数: {r_len} | 总差异代价: {total_edit_distance} | 最终计算字错率: {cer_score  100:.2f}%")
     return cer_score, dp
 
-# 🧬 工业仿真演练
 true_label = "语音大模型技术"
 asr_output = "宇音大模型的技术" # 犯了一个替换错误（语->宇），一个插入错误（多认了一个“的”）
 
@@ -162,6 +161,34 @@ error_rate, dp_matrix = calculate_cer_via_dynamic_programming(true_label, asr_ou
 >>> [DP_TRACEBACK] 最优对齐路径收敛完成：检测到 1 次 Substitution 扰动，1 次 Insertion 扰动。
 [METRIC] 真实字数: 7 | 总差异代价: 2 | 最终计算字错率: 28.57%
 >>> [ACCURACY_CHECK] 文本字对齐矩阵生成完毕，CER (28.57%) 结算结果已安全返回主系统特征总线。</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 Python 离散字符对齐矩阵动态规划递推的 Levenshtein 编辑距离字错率(CER)解算算子</h3>
+            <span class="tag">Python Objective Metric</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 科学度量语音识别（ASR）系统的文本转录纯度。算法基于纯 NumPy 二维状态网格，显式推导图论莱文斯坦空间转移方程。通过对替换错误（S）、删除错误（D）和插入错误（I）分配正交惩罚代价，动态回溯最优对齐路径，一阶消除非等长序列的对齐误差。将最终编辑开销硬核归一化输出可复现的字错率分值，作为衡量模型语言解码精度的客观基准。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/16_eval_metrics/levenshtein_dp.py" target="_blank" class="btn-view-source">📂 查看 Python 纯手写 Levenshtein 动态规划 CER 算法源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 基于 C++ 标量级紧凑迭代与对数分贝换算的梅尔倒谱距离(MCD)自适应声纹包络损伤计算内核</h3>
+            <span class="tag">C++ High-Performance Metric</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 高效量化音色克隆（Voice Cloning）生成音色与真实黄金目标在倒谱超空间内的包络几何相似性。算法避开了沉重的心理声学大框架，纯粹基于 C++ 指令级轻量化循环。算子主动截断剔除第 0 维功率噪声，流式抽取多维 MFCC 特征，在频域时序轴上并行积算欧氏空间模长平方。结合公式常数因子 $(10 \cdot \sqrt{2}) / \ln(10)$ 执行高精度的分贝（dB）尺度对齐转换，输出平均 MCD 指标，为克隆音色的物理纯度提供精准把关。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/16_eval_metrics/mcd_calculator.cpp" target="_blank" class="btn-view-source">📂 查看 C++ 高性能梅尔倒谱距离(MCD)计算内核源文件</a>
             </div>
         </div>
     </div>
