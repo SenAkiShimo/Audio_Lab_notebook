@@ -115,6 +115,30 @@ pitch_curve, avg_f0 = extract_voice_pitch("input_voice.wav", target_sr=16000)</c
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">时间轴色散与时域低通滤波器空间声明（DSP Resampling Specification）</h3>
+            <span class="tag">Overview</span>
+        </div>
+        <div class="card-body">
+            <p>在模拟信号向离散数字矩阵转换的过程中，重采样算法的优劣直接决定了高频频域的完整度。为了避免低阶线性插值带来的寄生噪底失真，本系统开发了完全脱离第三方依赖的 Whittaker-Shannon 理想内插重采样引擎，存放在项目根目录的 <code>/src/03_sampling_physics/</code> 文件夹中。请点击下方工程入口跳转审阅源码。</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 C++ 连续滑窗卷积的时域有限带宽 Sinc 窗口插值算法</h3>
+            <span class="tag">C++ DSP Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 突破硬件时域采样的物理缺陷。根据香农采样定理，完美的重采样需要利用无源无限长 $\text{sinc}$ 函数与时域离散点进行无限卷积，以完全滤除奈奎斯特折返混叠失真（Aliasing）。该算子在 C++ 中通过引入 24 阶汉宁滑动窗口，实现了有限长时域 $\text{sinc}$ 卷积矩阵逼近，确保了 AI 语音在跨平台格式整容时的声学高频完整性。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/03_sampling_physics/sinc_resample.cpp" target="_blank" class="btn-view-source">📂 查看 C++ 理想 Sinc 重采样算法源文件</a>
+            </div>
+        </div>
+    </div>
+
 
 </body>
 </html>
