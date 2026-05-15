@@ -6,6 +6,24 @@
     <title>笔记本</title>
     <link rel="stylesheet" href="cloudflare.com">
     <link rel="stylesheet" href="style.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+
+    <script
+        id="MathJax-script"
+        async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
 </head>
 <body>
 
@@ -24,33 +42,50 @@
             <div class="category-item">
                 <div class="category-title">📂 01_信号与工程基础</div>
                 <ul class="nav-links">
-                    <li><a href="notes/01_信号与工程基础/robustness.html" target="content-frame" data-keywords="语音鲁棒性全面解析 一、 鲁棒性的科学定义与核心本质 底层概念 鲁棒性（Robustness） 源自英文 Robust（强壮、健壮），在控制论和计算机科学中，指的是系统在面对 参数扰动、未建模动态、非预期输入或恶劣环境干扰 时，维持其原有功能和性能指标不发生崩溃的能力。 核心本质： 系统判定边界的模糊容错能力与抗过拟合能力。一个具有高鲁棒性的 AI 模型，其决策超平面（Decision Hyperplane）不会因为输入信号发生微小的方差改变而产生剧烈的分类偏移。 二、 AI 语音（ASR / TTS / VC）面对的鲁棒性挑战 领域痛点 在语音信号处理中，外界干扰会直接污染声学特征（如梅尔频" class="active">语音鲁棒性全面解析</a></li>
+                    <li><a href="notes/01_信号与工程基础/audio-formats.html" target="content-frame" data-keywords="音频编码格式与封装协议深度解析 一、 PCM 脉冲编码调制：数字音频的物理裸流 底层数据 PCM（Pulse Code Modulation，脉冲编码调制） 是音频信号在数字世界中最原始、最直接的展现形式。它不对音频进行任何压缩，只是将经过采样和量化后的二进制数据按照时间顺序连续排列。 1. 无结构性： PCM 裸流文件中不包含任何关于采样率、位深或声道数的描述信息（元数据）。在播放或读取 PCM 时，若不手动指定正确的参数，系统将无法正确解析，只会输出死寂或刺耳的白噪声。 2. 码率计算（Bitrate）： PCM 裸流的每秒数据量是完全恒定且可预测的。计算公式为： Bitrate = 采样" class="active">音频编码格式与封装协议深度解析</a></li>
+                    <li><a href="notes/01_信号与工程基础/robustness.html" target="content-frame" data-keywords="语音鲁棒性全面解析 一、 鲁棒性的科学定义与核心本质 底层概念 鲁棒性（Robustness） 源自英文 Robust（强壮、健壮），在控制论和计算机科学中，指的是系统在面对 参数扰动、未建模动态、非预期输入或恶劣环境干扰 时，维持其原有功能和性能指标不发生崩溃的能力。 核心本质： 系统判定边界的模糊容错能力与抗过拟合能力。一个具有高鲁棒性的 AI 模型，其决策超平面（Decision Hyperplane）不会因为输入信号发生微小的方差改变而产生剧烈的分类偏移。 二、 AI 语音（ASR / TTS / VC）面对的鲁棒性挑战 领域痛点 在语音信号处理中，外界干扰会直接污染声学特征（如梅尔频">语音鲁棒性全面解析</a></li>
                     <li><a href="notes/01_信号与工程基础/sampling.html" target="content-frame" data-keywords="音频采样率与位深底层机制解析 一、 采样率（Sampling Rate）与时间轴色散 时域离散化 声音在物理世界中是连续的模拟信号（Analog Signal）。计算机无法直接存储连续函数，必须通过模数转换器（ADC）在等间隔的时间点上对信号幅度进行提取，这一过程称为 采样（Sampling） 。 采样率（Fs） 定义为每秒钟提取样本点的数量，单位为赫兹（Hz）。采样率的高低直接决定了数字信号在时间轴上的分辨率。 奈奎斯特-香农采样定理（Nyquist-Shannon Sampling Theorem）： 为了不失真地恢复连续模拟信号，采样率（Fs）必须大于信号最高频率成分（Fmax）的两倍。">音频采样率与位深底层机制解析</a></li>
+                    <li><a href="notes/01_信号与工程基础/sound-physics.html" target="content-frame" data-keywords="声学物理基础与人声特性解析 一、 声波的物理机械本质 物理机制 声音在物理学中属于 机械纵波（Mechanical Longitudinal Wave） 。它依赖介质（如空气、水）的弹性形变进行能量传播。声源物体的振动引发空气分子的疏密交替变化，形成压力扰动的传播。 1. 声速（v）： 在标准大气压、15摄氏度的空气中，声速约为 340 m/s 。声速随温度和介质密度的改变而改变。 2. 波长（λ）与频率（f）： 它们满足线性几何对应关系： λ = v / f 。高频声音波长短，方向性强，易被障碍物反射；低频声音波长长，衍射（绕射）能力强，在空气中衰减速度慢。 二、 复合波、基频（F0）与谐波">声学物理基础与人声特性解析</a></li>
                 </ul>
             </div>
             <div class="category-item">
                 <div class="category-title">📂 02_时频域前处理与特征提取</div>
                 <ul class="nav-links">
+                    <li><a href="notes/02_时频域前处理与特征提取/mel-spectrogram.html" target="content-frame" data-keywords="梅尔频谱(Mel-Spectrogram)人耳听觉机制与工程特征解析 一、 线性赫兹频域的缺陷与人耳感知非线性 生物听觉 通过短时傅里叶变换（STFT）得到的功率谱，其频率轴是完全线性的（等间隔的赫兹 Hz）。然而，人类内耳的耳蜗基底膜对声音频率的感知表现出高度的 非线性特征 。 人类对低频段（如 100Hz 到 1000Hz）音高的微小变化极其敏感，能够轻易分辨出几十赫兹的差异；而对高频段（如 5000Hz 到 10000Hz）的频率变化则表现得非常迟钝。如果直接把线性的 STFT 功率谱喂给神经网络，模型将不得不耗费大量算力去拟合高频段那些对人类语义和音色无足轻重的冗余信息，导致训练效率低">梅尔频谱(Mel-Spectrogram)人耳听觉机制与工程特征解析</a></li>
+                    <li><a href="notes/02_时频域前处理与特征提取/mfcc.html" target="content-frame" data-keywords="梅尔频率倒谱系数(MFCC)数学本质与全链路算子解析 一、 MFCC 的核心本质与声学解耦原理 特征演进 MFCC（Mel-Frequency Cepstral Coefficients） 统治了深度学习普及前的语音任务。人声的产生可以简化为 “激励源-滤波器模型” ：声带振动产生原始激励信号，经过声道（咽头、口腔、鼻腔）的物理塑形（滤波器作用）后转化为语音。 语音的语义核心信息（如发的是什么音素）死死寄生在声道的频率包络上。MFCC 的数学本质，就是通过倒谱分析（Cepstral Analysis），将交织在一起的声带激励特征与声道包络特征彻底解耦分离，提取出高纯度的声道包络系数。 二、 M">梅尔频率倒谱系数(MFCC)数学本质与全链路算子解析</a></li>
+                    <li><a href="notes/02_时频域前处理与特征提取/stft.html" target="content-frame" data-keywords="短时傅里叶变换(STFT)数学原理与时频工程解析 一、 傅里叶变换的局限性与语音的短时平稳性假说 时频折中 标准的 快速傅里叶变换（FFT） 具有极高的频域分辨率，但它假设输入信号在时间轴上是无限延伸且静态不随时间变化的。然而，人类的语音是一个高度动态的 非平稳信号（Non-stationary Signal） ，音素、声调、声带张力都在毫秒级发生剧烈改变。如果直接对整段语音做傅里叶变换，只能得到声音包含哪些频率，却彻底丢失了这些频率发生在什么时间点的信息。 短时平稳性假说（Short-Time Stationarity Hypothesis）： 虽然语音信号整体是时变的，但在极短的时间跨度内">短时傅里叶变换(STFT)数学原理与时频工程解析</a></li>
                 </ul>
             </div>
             <div class="category-item">
                 <div class="category-title">📂 03_语音识别与交互（ASR_KWS）</div>
                 <ul class="nav-links">
+                    <li><a href="notes/03_语音识别与交互（ASR_KWS）/ctc-loss.html" target="content-frame" data-keywords="">ctc-loss</a></li>
+                    <li><a href="notes/03_语音识别与交互（ASR_KWS）/kws-pipeline.html" target="content-frame" data-keywords="">kws-pipeline</a></li>
+                    <li><a href="notes/03_语音识别与交互（ASR_KWS）/whisper.html" target="content-frame" data-keywords="">whisper</a></li>
                 </ul>
             </div>
             <div class="category-item">
                 <div class="category-title">📂 04_语音合成与音色克隆（TTS_VC</div>
                 <ul class="nav-links">
+                    <li><a href="notes/04_语音合成与音色克隆（TTS_VC/vits.html" target="content-frame" data-keywords="">vits</a></li>
+                    <li><a href="notes/04_语音合成与音色克隆（TTS_VC/vocoder.html" target="content-frame" data-keywords="">vocoder</a></li>
+                    <li><a href="notes/04_语音合成与音色克隆（TTS_VC/voice-cloning.html" target="content-frame" data-keywords="">voice-cloning</a></li>
                 </ul>
             </div>
             <div class="category-item">
                 <div class="category-title">📂 05_语音大模型与多模态（Speech_LLM）</div>
                 <ul class="nav-links">
+                    <li><a href="notes/05_语音大模型与多模态（Speech_LLM）/audio-tokenization.html" target="content-frame" data-keywords="">audio-tokenization</a></li>
+                    <li><a href="notes/05_语音大模型与多模态（Speech_LLM）/chattts.html" target="content-frame" data-keywords="">chattts</a></li>
+                    <li><a href="notes/05_语音大模型与多模态（Speech_LLM）/speech-llm-architecture.html" target="content-frame" data-keywords="">speech-llm-architecture</a></li>
                 </ul>
             </div>
             <div class="category-item">
                 <div class="category-title">📂 06_工程落地与质量评估</div>
                 <ul class="nav-links">
+                    <li><a href="notes/06_工程落地与质量评估/eval-metrics.html" target="content-frame" data-keywords="">eval-metrics</a></li>
+                    <li><a href="notes/06_工程落地与质量评估/onnx-tensorrt.html" target="content-frame" data-keywords="">onnx-tensorrt</a></li>
+                    <li><a href="notes/06_工程落地与质量评估/speech-denoising.html" target="content-frame" data-keywords="">speech-denoising</a></li>
                 </ul>
             </div>
             <!-- MENU_END -->
@@ -58,7 +93,7 @@
     </nav>
 
     <main class="main-container">
-        <iframe name="content-frame" id="content-frame" src="notes/01_信号与工程基础/robustness.html" frameborder="0"></iframe>
+        <iframe name="content-frame" id="content-frame" src="notes/01_信号与工程基础/audio-formats.html" frameborder="0"></iframe>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>

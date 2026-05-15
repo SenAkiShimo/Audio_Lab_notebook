@@ -7,6 +7,23 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
     <link rel="stylesheet" href="style.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+
+    <script
+        id="MathJax-script"
+        async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
 </head>
 <body class="sub-page">
 
@@ -31,14 +48,23 @@
             <p>为了模拟人耳对频率的实际感知，物理学家设计了<strong>梅尔刻度（Mel Scale）</strong>。梅尔刻度是一种心理声学频率轴，规定 1000Hz 的纯音对应的听觉感知量为 1000 Mel。</p>
             
             <div class="concept-box box-info">
-                <strong>赫兹（Hz）与梅尔（Mel）的经典转换公式：</strong><br>
-                从线性频率 $f$（单位为 Hz）映射到非线性梅尔频率 $m$ 的公式为：
-                <div style="padding: 10px 0; font-family: monospace; font-size: 16px; text-align: center;">
-                    <strong>m = 2595 * log10(1 + f / 700)</strong>
+                页面是从线性频率 $f$（单位为 Hz）映射到非线性梅尔频率 $m$ 的公式为：
+            </p>
+
+                <div style="padding: 10px 0; text-align: center;">
+                $$
+                m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)
+                $$
                 </div>
-                反向解调公式（从梅尔还原到赫兹）为：
-                <div style="padding: 10px 0; font-family: monospace; font-size: 16px; text-align: center;">
-                    <strong>f = 700 * (10^(m / 2595) - 1)</strong>
+
+                <p>
+                    反向解调公式（从梅尔还原到赫兹）为：
+                </p>
+
+                <div style="padding: 10px 0; text-align: center;">
+                $$
+                f = 700 \left(10^{\frac{m}{2595}} - 1\right)
+                $$
                 </div>
                 由此公式可见：当频率低于 1000Hz 时，梅尔刻度与赫兹几乎呈线性对应；当高于 1000Hz 时，刻度对数化压缩，高频段被大幅“压扁”。
             </div>
