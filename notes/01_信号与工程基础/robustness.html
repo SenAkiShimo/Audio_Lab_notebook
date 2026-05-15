@@ -108,5 +108,74 @@ noisy_audio, sample_rate = inject_white_noise("clean_speech.wav", target_snr_db=
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">系统理论架构声明（System Architecture Statement）</h3>
+            <span class="tag">Overview</span>
+        </div>
+        <div class="card-body">
+            <p>本项目旨在多维度全面探究 AI 语音前处理管道的鲁棒性极限边界。全链路解耦为四个核心节点：声学环境仿真、算法边界验证、客户端硬件重采样落地以及云端高并发网关安全拦截。所有硬核底层实现算子已完全脱离第三方高级音频依赖，独立封装在项目根目录的 <code>/src/01_robustness/</code> 文件夹中。请点击下方各章节对应的工程连接，直接审阅底层源文件代码结构。</p>
+        </div>
+    </div>
+
+    <!-- 1. Matlab 章节 -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 物理层空间混响失真仿真与 RIR 镜像源数学推导</h3>
+            <span class="tag">MATLAB Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 模拟物理世界的卷积失真（Convolutive Distortion）。语音在密闭空间中传播时，受墙壁反射影响会产生房间冲激响应（RIR），使声学梅尔特征严重偏移。本算法纯数学构建镜像声源，通过高并发离散卷积实现混响样本恶化，用以探查 AI 语音模型的环境鲁棒性下限。</p>
+            
+            <div class="source-link-container">
+                <a href="./src/01_robustness/simulate_reverb.m" target="_blank" class="btn-view-source">📂 查看 MATLAB 底层 RIR 卷积算法源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 算法层加性高斯白噪声数据增强与自适应信噪比计算</h3>
+            <span class="tag">Python Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 模拟环境加性噪声（Additive Noise）。在对数能量分贝（dB）空间中，计算纯净信号能量方差，以此反向推演指定信噪比所需的高斯白噪幅值。这是现代 ASR 识别大模型进行抗噪性能加固（Robustness Augmentation）最标准的数字前置手段。</p>
+            
+            <div class="source-link-container">
+                <a href=".src/01_robustness/augment_noise.py" target="_blank" class="btn-view-source">📂 查看 Python 自适应信噪比加噪算法源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. C++ 章节 -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">三、 客户端边缘端硬件级分数阶时域重采样与位深归一化</h3>
+            <span class="tag">C++ Core Engine</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 攻克硬件采集多样性带来的精度脆弱性问题。智能硬件输入的 PCM 裸流通常是 16位有符号整型。本模块手写一阶线性插值（Linear Interpolation）时域滑窗算子，在没有任何系统级音频库支持的超低算力芯片上，在内存中直接操作原始指针，将变长字节流无损转换为深度学习专用的 Float32 标准流，展现极致的端侧并发效率。</p>
+            
+            <div class="source-link-container">
+                <a href=".src/01_robustness/hardware_resample.cpp" target="_blank" class="btn-view-source">📂 查看 C++ 底层物理指针重采样算法源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Java 章节 -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">四、 云端分布式多维元数据熔断防御安全校验网关</h3>
+            <span class="tag">Java Enterprise Gateway</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 阻断业务服务层面的泛化脆弱性风险。高并发高爆发录音流涌入大模型云端服务器时，黑客构造的畸变头部字节会导致底层 C++ 编码器触发段错误直接死锁宕机。本安全网关基于 ByteBuffer 直接在内存字节块对位深、采样率以及持续时长进行多维快速交叉校验，提供毫秒级熔断拦截防线。</p>
+            
+            <div class="source-link-container">
+                <a href="./src/01_robustness/SecurityGateway.java" target="_blank" class="btn-view-source">📂 查看 Java 高并发流控安全网关源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
