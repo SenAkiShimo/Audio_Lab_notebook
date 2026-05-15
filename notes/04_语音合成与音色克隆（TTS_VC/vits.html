@@ -146,5 +146,19 @@ execute_vits_tts("Artificial intelligence voice synthesis technology has evolved
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 Python 二维概率空间对角化滑窗递推的单调对齐搜索（MAS）最优硬对齐矩阵重构算子</h3>
+            <span class="tag">Python Algorithm Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 彻底砸碎级联架构两阶段生成时的累积误差特征。在 VITS 训练期，模型通过后验编码器提炼高动态潜在变量 $z$，但面临文本序列短与音频特征帧长的严重不对齐。该算子基于纯 NumPy 矩阵，构建维度为 $(U \times T)$ 的累积对数似然增益空间 $Q$。算法强行规定单调性（发音顺序不可逆）与连续性（不可漏字跳字）双重物理硬门控，自左向右递归寻找最大条件似然边界，最终通过逆向时域矩阵路径回溯（Backtracking），生成 0-1 二进制硬对齐状态矩阵，完美为时长预测器提供高纯度的先验真值指标。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/10_vits_processing/vits_mas_dp.py" target="_blank" class="btn-view-source">📂 查看 Python 纯手写 VITS-MAS 动态规划对齐算法源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

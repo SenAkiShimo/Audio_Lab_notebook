@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/yang/Desktop/project/notebook/src/11_vocoder_processing/transposed_vocoder'
+relocations:     []
+...

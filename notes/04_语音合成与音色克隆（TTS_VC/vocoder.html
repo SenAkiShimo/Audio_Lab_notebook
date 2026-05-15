@@ -150,5 +150,19 @@ rebuilt_pcm = run_hifigan_vocoder(mock_mel_matrix)</code></pre>
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 C++ 内存块跨越式寻址的一维转置卷积(Transposed Conv1D)高并发上采样发生器内核</h3>
+            <span class="tag">C++ Core Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 彻底打破传统自回归神经声码器（如 WaveNet）因串行迭代导致的低效生产死锁。现代工业级 HiFi-GAN 声码器发生器采用全卷积并行拓扑。本算子利用 C++ 极致的硬件级指针移位，将离散的单帧梅尔幅值作为物理权重，与训练固化的对抗卷积核执行点积爆发。通过严密匹配 Stride 步长的空间差值，在连续内存缓冲区中执行高效的重叠相加（Overlap-Add）错位叠算。使时间轴窗口跨越式向外膨胀数百倍（完美对齐前置特征提取时的帧移下采样率），重构输出无金属残响残留的高频周期性连续物理波形流。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/11_vocoder_processing/transposed_vocoder.cpp" target="_blank" class="btn-view-source">📂 查看 C++ 高性能转置卷积神经声码器内核源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
