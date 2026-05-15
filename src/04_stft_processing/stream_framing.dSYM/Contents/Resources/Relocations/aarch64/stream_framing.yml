@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/yang/Desktop/project/notebook/src/04_stft_processing/stream_framing'
+relocations:     []
+...

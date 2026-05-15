@@ -51,41 +51,59 @@
             <div class="category-item">
                 <div class="category-title">📂 02_时频域前处理与特征提取</div>
                 <ul class="nav-links">
-                    <li><a href="notes/02_时频域前处理与特征提取/mel-spectrogram.html" target="content-frame" data-keywords="梅尔频谱(Mel-Spectrogram)人耳听觉机制与工程特征解析 一、 线性赫兹频域的缺陷与人耳感知非线性 生物听觉 通过短时傅里叶变换（STFT）得到的功率谱，其频率轴是完全线性的（等间隔的赫兹 Hz）。然而，人类内耳的耳蜗基底膜对声音频率的感知表现出高度的 非线性特征 。 人类对低频段（如 100Hz 到 1000Hz）音高的微小变化极其敏感，能够轻易分辨出几十赫兹的差异；而对高频段（如 5000Hz 到 10000Hz）的频率变化则表现得非常迟钝。如果直接把线性的 STFT 功率谱喂给神经网络，模型将不得不耗费大量算力去拟合高频段那些对人类语义和音色无足轻重的冗余信息，导致训练效率低">梅尔频谱(Mel-Spectrogram)人耳听觉机制与工程特征解析</a></li>
-                    <li><a href="notes/02_时频域前处理与特征提取/mfcc.html" target="content-frame" data-keywords="梅尔频率倒谱系数(MFCC)数学本质与全链路算子解析 一、 MFCC 的核心本质与声学解耦原理 特征演进 MFCC（Mel-Frequency Cepstral Coefficients） 统治了深度学习普及前的语音任务。人声的产生可以简化为 “激励源-滤波器模型” ：声带振动产生原始激励信号，经过声道（咽头、口腔、鼻腔）的物理塑形（滤波器作用）后转化为语音。 语音的语义核心信息（如发的是什么音素）死死寄生在声道的频率包络上。MFCC 的数学本质，就是通过倒谱分析（Cepstral Analysis），将交织在一起的声带激励特征与声道包络特征彻底解耦分离，提取出高纯度的声道包络系数。 二、 M">梅尔频率倒谱系数(MFCC)数学本质与全链路算子解析</a></li>
-                    <li><a href="notes/02_时频域前处理与特征提取/stft.html" target="content-frame" data-keywords="短时傅里叶变换(STFT)数学原理与时频工程解析 一、 傅里叶变换的局限性与语音的短时平稳性假说 时频折中 标准的 快速傅里叶变换（FFT） 具有极高的频域分辨率，但它假设输入信号在时间轴上是无限延伸且静态不随时间变化的。然而，人类的语音是一个高度动态的 非平稳信号（Non-stationary Signal） ，音素、声调、声带张力都在毫秒级发生剧烈改变。如果直接对整段语音做傅里叶变换，只能得到声音包含哪些频率，却彻底丢失了这些频率发生在什么时间点的信息。 短时平稳性假说（Short-Time Stationarity Hypothesis）： 虽然语音信号整体是时变的，但在极短的时间跨度内">短时傅里叶变换(STFT)数学原理与时频工程解析</a></li>
+                    <li><a href="notes/02_时频域前处理与特征提取/mel-spectrogram.html" target="content-frame" data-keywords="梅尔频谱(Mel-Spectrogram)人耳听觉机制与工程特征解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 线性赫兹频域的缺陷与人耳感知非线性 生物听觉 通过短时傅里叶变换（STFT）得到的功率谱，其频率轴是完全线性的（等间隔的赫兹 Hz）。然而，人类内耳的耳蜗基底膜对声音频率的感知表现出高度的 非线性特征 。 人类对低频段（如 100">梅尔频谱(Mel-Spectrogram)人耳听觉机制与工程特征解析</a></li>
+                    <li><a href="notes/02_时频域前处理与特征提取/mfcc.html" target="content-frame" data-keywords="梅尔频率倒谱系数(MFCC)数学本质与全链路算子解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 MFCC 的核心本质与声学解耦原理 特征演进 MFCC（Mel-Frequency Cepstral Coefficients） 统治了深度学习普及前的语音任务。人声的产生可以简化为 “激励源-滤波器模型” ：声带振动产生原始激励信号，经过声道（">梅尔频率倒谱系数(MFCC)数学本质与全链路算子解析</a></li>
+                    <li><a href="notes/02_时频域前处理与特征提取/stft.html" target="content-frame" data-keywords="短时傅里叶变换(STFT)数学原理与时频工程解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 傅里叶变换的局限性与语音的短时平稳性假说 时频折中 标准的 快速傅里叶变换（FFT） 具有极高的频域分辨率，但它假设输入信号在时间轴上是无限延伸且静态不随时间变化的。然而，人类的语音是一个高度动态的 非平稳信号（Non-stationary Sign">短时傅里叶变换(STFT)数学原理与时频工程解析</a></li>
                 </ul>
             </div>
             <div class="category-item">
                 <div class="category-title">📂 03_语音识别与交互（ASR_KWS）</div>
                 <ul class="nav-links">
-                    <li><a href="notes/03_语音识别与交互（ASR_KWS）/ctc-loss.html" target="content-frame" data-keywords="">ctc-loss</a></li>
-                    <li><a href="notes/03_语音识别与交互（ASR_KWS）/kws-pipeline.html" target="content-frame" data-keywords="">kws-pipeline</a></li>
-                    <li><a href="notes/03_语音识别与交互（ASR_KWS）/whisper.html" target="content-frame" data-keywords="">whisper</a></li>
+                    <li><a href="notes/03_语音识别与交互（ASR_KWS）/ctc-loss.html" target="content-frame" data-keywords="联结时序分类(CTC Loss)对齐机制与动态规划推导 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 序列对齐的致命痛点与 CTC 的核心初心 时序对齐 在传统的语音识别训练中，面临的最大难题是 音频时域特征帧与文本标签之间的非对称性 。一段 5 秒钟的音频，经过前处理和下采样后可能会产生 $T = 300$ 帧的特征向量，而对应的真实文本标签">联结时序分类(CTC Loss)对齐机制与动态规划推导</a></li>
+                    <li><a href="notes/03_语音识别与交互（ASR_KWS）/kws-pipeline.html" target="content-frame" data-keywords="关键词检测(KWS)硬核流水线与后处理流控机制 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 什么是 KWS 及其在边缘端的终极约束 业务场景 KWS（Keyword Spotting，关键词检测 / 语音唤醒） 的任务是在连续不断的实时音频流中，精准检测出特定的敏感词（如“嗨，Siri”或“天猫精灵”）。KWS 是整套 AI 语音交互的“看门">关键词检测(KWS)硬核流水线与后处理流控机制</a></li>
+                    <li><a href="notes/03_语音识别与交互（ASR_KWS）/whisper.html" target="content-frame" data-keywords="OpenAI Whisper 语音大模型架构与多任务生成机制解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 弱监督学习范式与多任务统一表征 大模型范式 在传统的语音识别（ASR）模型中，训练极度依赖高质量、高精度的清洗数据集（如 LibriSpeech）。然而，这种强监督学习模式极易导致模型在未见过的真实噪声环境（Out-of-Distri">OpenAI Whisper 语音大模型架构与多任务生成机制解析</a></li>
                 </ul>
             </div>
             <div class="category-item">
                 <div class="category-title">📂 04_语音合成与音色克隆（TTS_VC</div>
                 <ul class="nav-links">
-                    <li><a href="notes/04_语音合成与音色克隆（TTS_VC/vits.html" target="content-frame" data-keywords="">vits</a></li>
-                    <li><a href="notes/04_语音合成与音色克隆（TTS_VC/vocoder.html" target="content-frame" data-keywords="">vocoder</a></li>
-                    <li><a href="notes/04_语音合成与音色克隆（TTS_VC/voice-cloning.html" target="content-frame" data-keywords="">voice-cloning</a></li>
+                    <li><a href="notes/04_语音合成与音色克隆（TTS_VC/vits.html" target="content-frame" data-keywords="VITS 端到端语音合成架构与变分概率对齐机制解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 传统两阶段 TTS 缺陷与 VITS 的端到端整合革命 架构演进 在传统的语音合成（TTS）系统中，通常采用 两阶段（Two-stage）级联架构 ：第一阶段（如 Tacotron2）将输入文本转化为中间声学特征（梅尔频谱），第二阶段（如 HiFi">VITS 端到端语音合成架构与变分概率对齐机制解析</a></li>
+                    <li><a href="notes/04_语音合成与音色克隆（TTS_VC/vocoder.html" target="content-frame" data-keywords="声码器(Vocoder)技术演进与高性能神经网络重构机制解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 声码器的定义与数字语音合成的最后一公里 技术定义 声码器（Vocoder，语音编码器 Voice Coder 的合称） 是语音信号处理与合成技术（TTS/VC）中负责波形重构的最底层核心模块。在现代深度学习语音合成流水线中，中间声学模型负">声码器(Vocoder)技术演进与高性能神经网络重构机制解析</a></li>
+                    <li><a href="notes/04_语音合成与音色克隆（TTS_VC/voice-cloning.html" target="content-frame" data-keywords="音色克隆与少样本声纹跨领域迁移机制解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 什么是音色克隆及其工业级核心痛点 技术定义 音色克隆（Voice Cloning / Speaker Adaptation） 属于语音合成（TTS）或变声（VC）的高级演进方向。其核心目标是让 AI 模型在仅仅听过一段发音人极短的参考音频（通常为 3 秒到 1">音色克隆与少样本声纹跨领域迁移机制解析</a></li>
                 </ul>
             </div>
             <div class="category-item">
                 <div class="category-title">📂 05_语音大模型与多模态（Speech_LLM）</div>
                 <ul class="nav-links">
-                    <li><a href="notes/05_语音大模型与多模态（Speech_LLM）/audio-tokenization.html" target="content-frame" data-keywords="">audio-tokenization</a></li>
-                    <li><a href="notes/05_语音大模型与多模态（Speech_LLM）/chattts.html" target="content-frame" data-keywords="">chattts</a></li>
-                    <li><a href="notes/05_语音大模型与多模态（Speech_LLM）/speech-llm-architecture.html" target="content-frame" data-keywords="">speech-llm-architecture</a></li>
+                    <li><a href="notes/05_语音大模型与多模态（Speech_LLM）/audio-tokenization.html" target="content-frame" data-keywords="音频离散化Token化与残差矢量量化(RVQ)机制解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 为什么梅尔频谱无法满足语音大模型（Speech LLM）？ 技术范式变革 在传统的语音识别（ASR）与语音合成（TTS）系统中，高维连续矩阵（如对数梅尔频谱 Log-Mel）是标准的输入特征。然而，在以 GPT-4o、Gemini 等为代表的原">音频离散化Token化与残差矢量量化(RVQ)机制解析</a></li>
+                    <li><a href="notes/05_语音大模型与多模态（Speech_LLM）/chattts.html" target="content-frame" data-keywords="ChatTTS 对话式语音大模型自回归与副语言控制机制解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 传统 TTS 断层与 ChatTTS 的对话式自回归革命 范式演进 传统语音合成系统（如基于 VITS 或传统两阶段的模型）虽然在单句发音的清晰度上达到了较高水准，但在面对长文本、真实对话场景（如播客、客服、有声书小说）时表现出严重的机器呆">ChatTTS 对话式语音大模型自回归与副语言控制机制解析</a></li>
+                    <li><a href="notes/05_语音大模型与多模态（Speech_LLM）/speech-llm-architecture.html" target="content-frame" data-keywords="原生多模态语音大模型(Speech LLM)端到端全自回归架构解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 级联语音系统（Cascade）的终极缺陷与原生多模态革命 架构演进 早期的语音对话助手多采用 级联架构（Cascade Pipeline） ，即将三个独立的模型串联运行： 语音输入 &rarr; 语音识别(ASR) &rarr; 文">原生多模态语音大模型(Speech LLM)端到端全自回归架构解析</a></li>
                 </ul>
             </div>
             <div class="category-item">
                 <div class="category-title">📂 06_工程落地与质量评估</div>
                 <ul class="nav-links">
-                    <li><a href="notes/06_工程落地与质量评估/eval-metrics.html" target="content-frame" data-keywords="">eval-metrics</a></li>
-                    <li><a href="notes/06_工程落地与质量评估/onnx-tensorrt.html" target="content-frame" data-keywords="">onnx-tensorrt</a></li>
-                    <li><a href="notes/06_工程落地与质量评估/speech-denoising.html" target="content-frame" data-keywords="">speech-denoising</a></li>
+                    <li><a href="notes/06_工程落地与质量评估/eval-metrics.html" target="content-frame" data-keywords="语音系统核心评估指标与量化测试矩阵解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 字错率（WER/CER）与动态规划编辑距离（Levenshtein） ASR客观指标 在语音识别（ASR）任务中，衡量文本转录准确率的绝对标准是 字错率（WER，Word Error Rate） 或字符错误率（CER，Character Error Rate，">语音系统核心评估指标与量化测试矩阵解析</a></li>
+                    <li><a href="notes/06_工程落地与质量评估/onnx-tensorrt.html" target="content-frame" data-keywords="语音模型 ONNX 导出与 TensorRT 硬件加速部署解析 一、 生产环境的工程痛点与模型导出的必然性 部署演进 在研究阶段，AI 语音模型（如 Whisper, VITS）通常基于 PyTorch 编写，其核心依赖 动态计算图（Dynamic Computation Graph） 和复杂的 Python 运行时环境。但在实际工业级落地或超低延迟实时交互（如车机唤醒、电话客服）场景中，直接用 PyTorch 部署存在三个致命伤： 1. Python 运行开销与 GIL 锁限制： Python 的多线程在高并发服务器上表现糟糕，严重的 CPU 上下文切换会导致音频流推理产生剧烈抖动。 2. ">语音模型 ONNX 导出与 TensorRT 硬件加速部署解析</a></li>
+                    <li><a href="notes/06_工程落地与质量评估/speech-denoising.html" target="content-frame" data-keywords="语音降噪与环境声学增强技术全链路解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 传统线性降噪：谱减法（Spectral Subtraction）与音乐噪声缺陷 经典算法 语音降噪（Speech Denoising / Enhancement） 是所有语音流式系统的前置防火墙。在物理世界的现实场景中，采集到的信号 $y(t)$ 总是由纯净人声">语音降噪与环境声学增强技术全链路解析</a></li>
+                </ul>
+            </div>
+            <div class="category-item">
+                <div class="category-title">📂 07_多麦克风阵列与降噪波束成形</div>
+                <ul class="nav-links">
+                    <li><a href="notes/07_多麦克风阵列与降噪波束成形/beamforming-ds.html" target="content-frame" data-keywords="延迟求和波束成形(Delay-and-Sum Beamforming)物理干涉机制解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 什么是波束成形及其物理空间过滤初心 物理机理 通过声源定位（SSL）算法锁定发音人的空间方位角 \(\theta\) 后，多麦克风流水线的下一步核心任务是提取并增强该方向的目标人声，同时强行压制来自其他盲区角度的">延迟求和波束成形(Delay-and-Sum Beamforming)物理干涉机制解析</a></li>
+                    <li><a href="notes/07_多麦克风阵列与降噪波束成形/mic-arrays.html" target="content-frame" data-keywords="多麦克风阵列拓扑结构与空间采样限制解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 从时间采样到空间声场采样（Spatial Sampling） 物理机制 单颗麦克风只能接收特定空间坐标点上的声压随时间变化的连续曲线，即传统的 时间采样（Temporal Sampling） 。在有背景杂音、混响重、多发音人交织的复杂物理环境中，单声道信号彻底">多麦克风阵列拓扑结构与空间采样限制解析</a></li>
+                    <li><a href="notes/07_多麦克风阵列与降噪波束成形/mvdr-beamforming.html" target="content-frame" data-keywords="自适应波束成形(MVDR)数学原理与空间零点对消机制解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 固定波束的工程死穴与自适应空域增强的初心 架构局限 前置的延迟求和波束成形（DS）属于固定波束成形。它的增益图谱方向响应是完全死板且一成不变的，只能对付在空间中完全随机均匀分布的扩散白噪声（Diffuse Noise）。但在真实的工业场景中，">自适应波束成形(MVDR)数学原理与空间零点对消机制解析</a></li>
+                    <li><a href="notes/07_多麦克风阵列与降噪波束成形/ssl-tdoa.html" target="content-frame" data-keywords="声源定位(SSL)与广义互相关相位变换(GCC-PHAT)数学算子解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 声源定位（SSL）与到达时间差（TDOA）几何逆向推导 几何机理 声源定位（SSL，Sound Source Localization） 的核心初心是在不依赖摄像机视觉的前提下，纯粹通过声学方法计算出当前说话人的空间方位（通常表">声源定位(SSL)与广义互相关相位变换(GCC-PHAT)数学算子解析</a></li>
+                </ul>
+            </div>
+            <div class="category-item">
+                <div class="category-title">📂 08_语音数字水印与对抗样本防御</div>
+                <ul class="nav-links">
+                    <li><a href="notes/08_语音数字水印与对抗样本防御/adversarial-attacks.html" target="content-frame" data-keywords="语音对抗样本攻击(Adversarial Attacks)数学原理与特征隐蔽注入解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 深度声学网络的空间脆弱性与对抗攻击初心 安全漏洞 基于深度神经网络（DNN）的现代语音系统（如 ASR 识别、KWS 唤醒）尽管在标准测试集上表现优异，但在高维几何空间中表现出极强的 非线性脆弱性 。黑客可以通过在">语音对抗样本攻击(Adversarial Attacks)数学原理与特征隐蔽注入解析</a></li>
+                    <li><a href="notes/08_语音数字水印与对抗样本防御/adversarial-defense.html" target="content-frame" data-keywords="语音对抗样本防御与声学滤波净化机制解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 语音对抗样本防御的工程挑战与双层防护初心 安全加固 由于黑客生成的对抗扰动极其微弱（时域幅值变化微乎其微），直接部署传统的低通/高通滤波器很难在不损伤有用人声语义的前提下将其彻底分离。如果在工业级 ASR 服务器或智能唤醒系统中不做任何安全防护，黑客精心构造的">语音对抗样本防御与声学滤波净化机制解析</a></li>
+                    <li><a href="notes/08_语音数字水印与对抗样本防御/audio-watermarking.html" target="content-frame" data-keywords="数字语音水印与版权主动溯源技术解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 数字语音水印的安全性初心与工业级约束 合规与防伪 随着零样本变声（Voice Cloning）与自回归语音大模型（如 ChatTTS、CosyVoice）的全面爆发，声纹伪造与恶意音频诈骗已成为全球性安全威胁。 数字语音水印（Audio Watermarking）">数字语音水印与版权主动溯源技术解析</a></li>
+                    <li><a href="notes/08_语音数字水印与对抗样本防御/deepfake-detection.html" target="content-frame" data-keywords="深伪语音检测(Deepfake Detection)与声学伪影鉴别机制解析 window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'global' } }; 一、 声音防欺诈与神经机器伪影捕获的核心初心 深伪防欺诈 随着零样本变声（Voice Cloning）与对话式语音大模型（如 ChatTTS）的绝对拟真化，克隆一段人声的成本已降至零门槛。不法分子极易利用伪造的熟人音色实施电话欺诈">深伪语音检测(Deepfake Detection)与声学伪影鉴别机制解析</a></li>
                 </ul>
             </div>
             <!-- MENU_END -->

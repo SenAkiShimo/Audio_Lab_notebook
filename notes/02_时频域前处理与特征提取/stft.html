@@ -123,5 +123,33 @@ spec_matrix, sample_rate = compute_stft_spectrogram("clean_speech.wav")</code></
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 C++ 内存指针连续滑窗移动的时域非平稳信号流式分帧与加窗算子</h3>
+            <span class="tag">C++ Core Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 规避一维连续长波形的全局时变非平稳性缺陷。根据准平稳状态假说，语音在 20ms 周期内声道解剖结构处于相对静止。该算子利用 C++ 向量指针移动实现严格的时间轴重叠滑窗切片，并在内存流级并行点乘离散汉宁窗（Hann Window）算子，强制迫使切片交界边缘的振幅平滑衰减至零，从源头上抹杀由于生硬数学截断引发的<strong>频谱泄露（Spectral Leakage）</strong>伪影缺陷。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/04_stft_processing/stream_framing.cpp" target="_blank" class="btn-view-source">📂 查看 C++ 时域流式分帧加窗算子源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 基于 Python 欧拉旋转矩阵正交投影的一维离散傅里叶变换(DFT)与对数振幅谱重构</h3>
+            <span class="tag">Python Matrix Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 完成一维向高维时频图像的非线性映射。接收前置分帧完成的准平稳向量，利用 NumPy 建立复数旋转因子正交网格算子，纯手写一维离散傅里叶变换（DFT）将信号映射至复数频域空间。提取复数谱的绝对二次型模长得到线性功率谱，并通过对数分贝变换 $20 \cdot \log_{10}$ 逼近人类耳朵的响度感知非线性，最终拼接输出适配神经网络直接吞吐的<strong>二维对数振幅语谱图（Spectrogram）</strong>。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/04_stft_processing/dft_spectrogram.py" target="_blank" class="btn-view-source">📂 查看 Python 矩阵级 DFT 特征重构算子源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
