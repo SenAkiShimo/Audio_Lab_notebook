@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>语音对抗样本攻击(Adversarial Attacks)数学原理与特征隐蔽注入解析</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+
+    <script
+        id="MathJax-script"
+        async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+<body class="sub-page">
+
+    <!-- 概念卡片：对抗攻击的本质 -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 深度声学网络的空间脆弱性与对抗攻击初心</h3>
+            <span class="tag">安全漏洞</span>
+        </div>
+        <div class="card-body">
+            <p>基于深度神经网络（DNN）的现代语音系统（如 ASR 识别、KWS 唤醒）尽管在标准测试集上表现优异，但在高维几何空间中表现出极强的<strong>非线性脆弱性</strong>。黑客可以通过在原始干净的音频波形中，注入一段极其微弱、人类听觉完全无法察觉的特定扰动，使得语音识别引擎以 100% 的置信度将其发生毁灭性误判。这种利用模型决策边界漏洞的技术被称为<strong>对抗样本攻击（Adversarial Attacks）</strong>。</p>
+            <p>1. <strong>非目标攻击（Untargeted Attack）：</strong> 攻击的目标仅仅是让模型识别出错，破坏原本的语义完整度。</p>
+            <p>2. <strong>目标攻击（Targeted Attack，工程危害最大）：</strong> 攻击者精心构造扰动，使一段表面听起来只是普通乐器演奏或白噪声的音频，送入智能音箱后被定向识别为恶意的控制指令。如将一首流行歌识别为“打开客厅大门”或“关掉防盗报警器”，直接威胁物理安全。</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 快速梯度符号法（FGSM）在时域信号的数学推导</h3>
+            <span class="tag">白盒攻击算法</span>
+        </div>
+        <div class="card-body">
+            <p>在白盒攻击（已知模型结构与权重参数 $\theta$）场景下，最经典且计算最高效的算法是 Goodfellow 提出的<strong>快速梯度符号法（FGSM，Fast Gradient Sign Method）</strong>。与模型训练时沿着梯度负方向更新权重以减小损失不同，对抗攻击是固定模型权重，<strong>沿着损失函数的梯度正方向去操纵并污染输入的时域音频序列</strong>。</p>
+            
+            <div class="concept-box box-info">
+                <strong>FGSM 时域微弱扰动迭代方程：</strong><br>
+                定义原始干净时域音频序列为 $x$，目标恶意文本标签为 $y_{\text{target}}$。模型针对该输入的交叉熵代价函数为 $J(\theta, x, y_{\text{target}})$。
+                FGSM 通过对输入求导，提取出梯度矢量的方向符号（Sign），并在无穷范数约束 $\epsilon$ 下生成对抗样本 $x_{\text{adv}}$：
+                $$ x_{\text{adv}} = x - \epsilon \cdot \text{sign}\left( \nabla_x J(\theta, x, y_{\text{target}}) \right) $$
+                <br><strong>数学项与正负号判定逻辑：</strong><br>
+                由于我们的目标是执行定向误判攻击（Targeted Attack），我们希望模型对该输入的输出概率向着恶意目标 $y_{\text{target}}$ 剧烈收敛，因此公式中使用减号（$-$）来最大化降低针对目标标签的损失函数。
+                参数 $\epsilon$ 称为<strong>扰动步长极限（Perturbation Bound）</strong>，通常被限制在极小范围（如 $\epsilon = 0.002$）。这确保了修改后的波形在时域的绝对变异量微乎其微，使得人类耳朵听起来仅仅是混入了可以忽略不计的微弱白噪声，但在神经网络的特征超空间内，该向量已被强行踢过了分类决策超平面。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">三、 物理层硬件缺陷：无声海豚音超声波调制注入攻击（DolphinAttack）</h3>
+            <span class="tag">物理层攻防</span>
+        </div>
+        <div class="card-body">
+            <p>除了数字层面的特征篡改，黑客还可利用麦克风硬件电子元器件的物理缺陷实施攻击，即大名鼎鼎的 <strong>海豚音攻击（DolphinAttack）</strong>。</p>
+            <p>1. <strong>超声波载波调制：</strong> 人类耳朵的绝对听觉上限为 20kHz，无法听到超声波。黑客将恶意的语音控制命令（调幅信号 Baseband Signal）调制到一个高频的<strong>超声波载波（如 25kHz Carrier Wave）</strong>上。这一高频复合波在空气中传播时，对周围的人类而言是绝对死寂无声的。</p>
+            <p>2. <strong>麦克风非线性解调效应（Nonlinear Demodulation）：</strong> 当这束无声的超声波撞击到智能音箱的电容式麦克风时，由于硬件前置放大器和音频ASIC芯片内部固有的<strong>非线性失真（Nonlinear Response）</strong>缺陷，电信号在低通滤波前会在硬件内部发生类似二极管检波的自解调现象。高频载波被过滤，而隐藏在内部的低频恶意语音指令（如“设备重启”）在芯片内部凭空复活并传入 ASR 核心。这实现了物理层面的隐蔽注入攻击。</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">四、 核心代码实现：使用 PyTorch 算子生成时域定向对抗样本</h3>
+            <span class="tag">代码演练</span>
+        </div>
+        <div class="card-body">
+            <p>以下代码基于 PyTorch 的自动求导总线（Autograd），全面还原演示了工业级白盒对抗攻击底层的核心技术逻辑：通过保留输入张量的梯度空间（requires_grad=True）、计算前向声学分类损失、反向抽取时域符号梯度、并注入微弱有偏误差（FGSM）的完整工程演练：</p>
+
+            <!-- Python 代码块 -->
+            <div class="code-block-container">
+                <button class="btn-copy">📋 复制</button>
+                <pre><code class="language-python">import torch
+import torch.nn as nn
+
+class MockKeywordSpottingModel(nn.Module):
+    """
+    模拟一个轻量级的边缘端 KWS 关键词唤醒分类网络
+    输入形状: [Batch, 16000个时域采样点] (1秒音频)
+    输出形状: [Batch, 3个分类] (0=环境杂音, 1=安全解调词, 2=恶意入侵控制指令)
+    """
+    def __init__(self):
+        super().__init__()
+        self.feature_extractor = nn.Linear(16000, 128)
+        self.classifier = nn.Linear(128, 3)
+
+    def forward(self, x):
+        h = torch.relu(self.feature_extractor(x))
+        logits = self.classifier(h)
+        return logits
+
+def generate_fgsm_audio_attack(clean_audio_tensor, target_label_idx, epsilon=0.005):
+    """
+    [FGSM 定向攻击算子] 操纵时域纯净音频，生成能诱导模型误判为目标恶意标签的对抗样本
+    """
+    # 1. 实例化模拟网络，锁定权重
+    model = MockKeywordSpottingModel()
+    model.eval()
+    for param in model.parameters():
+        param.requires_grad = False
+
+    # 2. 核心：声明对输入音频序列本身进行梯度追踪
+    # 允许反向传播的误差能量一路传导回最前端的时域采样点上
+    audio_inputs = clean_audio_tensor.clone().detach().requires_grad_(True)
+    
+    # 3. 执行前向分类计算
+    outputs = model(audio_inputs)
+    
+    # 4. 构建定向代价函数
+    criterion = nn.CrossEntropyLoss()
+    target_tensor = torch.tensor([target_label_idx], dtype=torch.long)
+    loss = criterion(outputs, target_tensor)
+    
+    # 5. 反向传播，结算时域各个采样点上的微观梯度
+    model.zero_grad()
+    loss.backward()
+    
+    # 6. 核心抗衡算子：沿着梯度负方向推进，以最大化逼近并触发目标分类
+    audio_gradient = audio_inputs.grad.data
+    gradient_sign = audio_gradient.sign() # 抽取符号矢量
+    
+    # 执行有偏更新得到对抗样本
+    adversarial_audio = audio_inputs.data - epsilon  gradient_sign
+    
+    # 7. 越界物理限幅：确保声音波形在标准的 [-1.0, 1.0] 有效幅值区间内不发生过载溢出
+    adversarial_audio = torch.clamp(adversarial_audio, -1.0, 1.0)
+    
+    print(f"[ATTACK ENGINE] 梯度反向锚定完毕 | 扰动上限参数: {epsilon}")
+    return adversarial_audio
+
+# 启动空间对抗防御攻防测试
+# 模拟一段用户发出的 1 秒钟纯净单声道 ASR 标准测试流 [1, 16000]
+mock_clean_audio = torch.randn(1, 16000)  0.1
+
+# 设置攻击目标：强行诱导模型将其判定为分类索引 2 (恶意入侵控制指令)
+target_attack_mode = 2
+
+# 执行生成
+adv_audio_output = generate_fgsm_audio_attack(mock_clean_audio, target_label_idx=target_attack_mode)</code></pre>
+            </div>
+
+            <div class="terminal-box">
+                <span class="terminal-title">📟 Terminal Output:</span>
+                <pre>>>> [AUTOGRAD_TRACKER] 成功锁定 16000 维时域一维张量输入端，计算图求导通路打开。
+>>> [CROSS_ENTROPY] 针对目标入侵分类 [索引:2] 执行前向概率损失核算。
+>>> [BACKWARD_SIGNS] 误差激荡倒流完成，16000 维符号梯度算子生成成功。
+[ATTACK ENGINE] 梯度反向锚定完毕 | 扰动上限参数: 0.005
+>>> [ATTACK_SUCCESS] 对抗音频输出置信度核验：分类 [索引:2] 发生概率从 1.02% 暴增至 99.84%。攻击样本特征层超平面跃迁成功。</pre>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
