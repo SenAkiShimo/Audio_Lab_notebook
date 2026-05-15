@@ -158,5 +158,33 @@ final_features = advanced_mfcc_pipeline("test_voice.wav")</code></pre>
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 C++ 内存连续定点一阶差分的高通预加重滤波器（步骤 0）</h3>
+            <span class="tag">C++ Hardware Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 补偿人声在自由物理空间传播中高频能量发生的高额衰减。声带与声门的物理阻抗导致语音高频段存在大约每倍频程 6dB 的能量下塌。该算子利用 C++ 指令级循环，纯手写一阶差分方程 $y[t] = x[t] - 0.97 \cdot x[t-1]$，在输入序列的物理最前端实施定点高通拦截。拉平信号频谱分布，强行确保高频区域的音色高阶谐波不被低频基础共振峰所淹没。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/06_mfcc_processing/pre_emphasis.cpp" target="_blank" class="btn-view-source">📂 查看 C++ 时域一阶预加重差分算法源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 基于 Python 正交 DCT-II 基底投影特征对角化与一二阶时序微积分差分流水线（步骤 4 扩展）</h3>
+            <span class="tag">Python Signal Core</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 接收高冗余的梅尔对数谱，利用余弦正交函数作为空间投影矩阵，纯手写离散余弦变换（DCT-II），将声道高频快速震动剥离，强行拦截并留存反映声道几何形态的前 13 维低阶共振峰系数。在此基础上，通过滑窗时间差分算法，级联解算出反映声学特征时域一阶导数（速度）与二阶导数（加速度）的扩展向量，终极垂直堆叠封装为 39 维标准 ASR 特征矩阵。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/06_mfcc_processing/dct_decouple.py" target="_blank" class="btn-view-source">📂 查看 Python 矩阵级 DCT 与动态差分算子源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

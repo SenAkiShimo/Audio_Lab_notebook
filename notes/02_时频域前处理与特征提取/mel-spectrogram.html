@@ -156,5 +156,33 @@ mel_features = generate_log_mel_spectrogram("sample_voice.wav", n_mels=80)</code
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 MATLAB 纯对数数理映射的等高重叠梅尔三角滤波器组传递矩阵生成算子</h3>
+            <span class="tag">MATLAB Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 突破传统赫兹（Hz）线性轴对高频过渡冗余对齐的算力浪费缺陷。本算子纯手写还原人耳耳蜗基底膜感知公式 $m = 2595 \cdot \log_{10}(1 + f/700)$，通过在非线性梅尔空间执行均匀线性采样，再反向解调映射回离散 FFT 离散坐标点。利用双向倾斜爬坡控制函数构建部分重叠的三角窗结构，最终封装输出高纯度的心理声学空间频率收缩传递矩阵。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/05_mel_processing/mel_filter_banks.m" target="_blank" class="btn-view-source">📂 查看 MATLAB 梅尔三角窗传递矩阵生成源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 基于 Python 稠密矩阵线代点积降维与 80dB 饱和对数响度级压缩流水线</h3>
+            <span class="tag">Python AI Pipeline</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 接收高维时频功率谱，引入矩阵乘法点积 $\mathbf{M} = \mathbf{F}_{\text{mel}} \cdot \mathbf{P}_{\text{stft}}$，在极低失真前提下强行将冗余频段精简压缩至固定的 80 维人声临界频带。配合自适应分贝能量取对数算子，附加全局最大能量自适应下陷 80dB 的边界刚性裁切，极限清洗底噪并平滑数值，重构输出标准对数梅尔特征流。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/05_mel_processing/log_mel_pipeline.py" target="_blank" class="btn-view-source">📂 查看 Python 矩阵点积降维与对数压缩算子源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

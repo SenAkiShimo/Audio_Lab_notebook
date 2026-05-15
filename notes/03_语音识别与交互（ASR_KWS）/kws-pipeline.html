@@ -149,5 +149,19 @@ for i, raw_prob in enumerate(mock_stream_probs):
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 C++ 内存回环覆写指针的高频置信度移动平均滤波与双阈值判决状态机</h3>
+            <span class="tag">C++ Hardware Engine</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 彻底规避神经网络单帧推理置信度严重抖动引发的误唤醒灾难。算法摒弃了高内存消耗的多级动态数组扩容，纯手写固定时域宽度 $N$ 的内存环形队列（Ring Buffer），执行基于取模算子的单指针滑动平移覆写。级联执行移动平均（Moving Average）一阶低通时频滤波，硬核压制孤立突发环境爆破噪声伪影。挂载上限门控 $T_{\text{high}}$ 与下限激活门控 $T_{\text{low}}$ 的双层硬判决拓扑状态机，在成功捕捉连续发音能量收敛的瞬间，向主 SoC 投递物理级硬件中断，并执行历史轨迹瞬时归零重置，保障整套始终在 mW 级别极致低开销下稳定收敛。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/08_kws_processing/kws_streaming.cpp" target="_blank" class="btn-view-source">📂 查看 C++ 边缘端低功耗 KWS 流式控流源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

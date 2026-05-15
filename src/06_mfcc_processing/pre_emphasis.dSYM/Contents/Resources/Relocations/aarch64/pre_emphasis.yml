@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/yang/Desktop/project/notebook/src/06_mfcc_processing/pre_emphasis'
+relocations:     []
+...

@@ -138,5 +138,19 @@ print(f"CTC 损失解算成功 | 当前批次负对数似然 Loss 值: {loss.ite
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 Python 离散状态网格自左向右递推的 CTC 前向动态规划算法与最大似然路径收敛</h3>
+            <span class="tag">Python Algorithm Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 利用 NumPy 构建规格为 $(T \times (2U+1))$ 的前向变量格点拓扑矩阵 $\alpha_t(s)$。算法通过逐帧执行时间轴滑窗状态步进，严密核验当前时刻与历史时刻的重叠字符一致性。在非空白字符且不等于上上个字符的刚性约束下，动态开辟第三条跨空白符跳跃转移分支。最终在时刻 $T-1$ 跨维累加聚合所有合法的重复合并与空白擦除坍缩路径，负对数似然化输出具备全链路可微传导梯度的损失标量。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/07_ctc_processing/ctc_forward_dp.py" target="_blank" class="btn-view-source">📂 查看 Python 纯手写 CTC 前向动态规划算法源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
