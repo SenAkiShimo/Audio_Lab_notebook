@@ -154,5 +154,34 @@ else:
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 C++ 内存连续缓冲分数阶插值(Fractional Shift)的流式多通道 TDOA 时域反向校正延迟求和内核</h3>
+            <span class="tag">C++ High-Performance Kernel</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 消除数字信号处理在低采样率离散化下由于整数时间截断导致的声学相位非线性高频畸变故障。声波射入阵列引起的通道间延迟差往往为非整数个采样点。本算子基于 C++ 指令级轻量循环，纯手写一阶线性时域插值函数，将每个时间通道根据特定的浮点型 TDOA 值，在连续内存缓冲区中执行非整数阶的分数点滑窗寻址位移（Delay）。在完全恢复时间轴对齐纯度的前置条件下，执行跨通道横向求和（Sum）均值归一。使目标方向信号发生同相相长干涉（能量无损透传），迫使旁瓣盲区随机底噪发生异相相消干涉（压制 6dB 空间不相关能量），重构输出纯净的单声道标准化声学流。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/19_beamforming_ds/ds_delay_core.cpp" target="_blank" class="btn-view-source">📂 查看 C++ 流式分数阶延迟求和波束成形算法源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. MATLAB 章节 -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 基于 MATLAB 复数共轭基底正交网格映射的均匀线形阵列三维空域响应全角度方向图分析器</h3>
+            <span class="tag">MATLAB Acoustic Component</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 量化阵列空间物理孔径关于全语音有效带宽（100Hz至8000Hz）的能量控制力。算子在 MATLAB 稠密矩阵空间运行，利用复数对数指数因子 $\exp(-j \omega \tau)$ 在三维超平面上推导阵列传递函数。通过遍历全空间 180 度观察切片角与频域正交格点，解算共轭复数权重与声学导向向量的复数内积 $\mathbf{H}(f, \theta) = \mathbf{w}^H \cdot \mathbf{d}$。以对数分贝（dB）尺度完整重塑波束方向图矩阵（Beam Pattern），呈现主瓣空间宽度以及低频阻带旁瓣的对数衰减分布，为多通道前端增强提供数理量化看板。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/19_beamforming_ds/beam_pattern_analyzer.m" target="_blank" class="btn-view-source">📂 查看 MATLAB 三维全频域波束方向图解析算子源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

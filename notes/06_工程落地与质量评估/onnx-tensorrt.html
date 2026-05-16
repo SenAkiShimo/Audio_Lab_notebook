@@ -150,7 +150,7 @@ print(f"[ONNX SUCCESS] 静态计算图跟踪无缝完成，动态时序轴成功
             <span class="tag">Python ONNX Exporter</span>
         </div>
         <div class="card-body">
-            <p><strong>理论简述：</strong> 斩断对 Python 解释器运行时开销及全局解释器锁（GIL）的底层依赖。算子接收 Evaluation 状态下的 PyTorch 权重，通过单向数据流打样追踪，将动态神经网络拓扑脱壳平铺为通用的有向无环图（ONNX DAG）。针对语音信号天然是不定长时序特征流的死穴缺陷，代码显式注入配置矩阵，对 Batch 维度和 Time Sequence 维度强行施行<strong>动态轴（Dynamic Shapes）</strong>约束绑定，从而保障编译出的模型面对任意毫秒长度的输入均能弹性开辟内存，拒绝产生边界溢出崩溃。」</p>
+            <p><strong>理论简述：</strong> 斩断对 Python 解释器运行时开销及全局解释器锁（GIL）的底层依赖。算子接收 Evaluation 状态下的 PyTorch 权重，通过单向数据流打样追踪，将动态神经网络拓扑脱壳平铺为通用的有向无环图（ONNX DAG）。针对语音信号天然是不定长时序特征流的死穴缺陷，代码显式注入配置矩阵，对 Batch 维度和 Time Sequence 维度强行施行<strong>动态轴（Dynamic Shapes）</strong>约束绑定，从而保障编译出的模型面对任意毫秒长度的输入均能弹性开辟内存，拒绝产生边界溢出崩溃。</p>
             
             <div class="source-link-container">
                 <a href="/src/17_deploy_acceleration/export_onnx.py" target="_blank" class="btn-view-source">📂 查看 Python 动态轴绑定与静态图 ONNX 导出算子源文件</a>

@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/yang/Desktop/project/notebook/src/19_beamforming_ds/ds_delay_core'
+relocations:     []
+...
