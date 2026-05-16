@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/yang/Desktop/project/notebook/src/25_audio_watermarking/lsb_watermark_core'
+relocations:     []
+...

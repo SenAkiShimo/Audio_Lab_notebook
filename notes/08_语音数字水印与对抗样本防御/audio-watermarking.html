@@ -74,7 +74,6 @@
         </div>
     </div>
 
-    <!-- 概念卡片：Python闭环仿真代码 -->
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">四、 核心代码实现：时域 LSB 水印全链路嵌入与无损解调</h3>
@@ -83,9 +82,9 @@
         <div class="card-body">
             <p>以下代码基于整型移位运算法则，完整演示了如何在一维语音时间序列中将一串 8 位二进制字符串拆解、对齐移位嵌入各个采样点的 LSB 低阶位（Watermark Embedding），以及在接收端纯靠移位掩码反向剥离解调出原始隐藏信息（Extraction）的完整全链路工程仿真：</p>
 
-            <!-- Python 代码块 -->
+  
             <div class="code-block-container">
-                <button class="btn-copy">📋 复制</button>
+                <button class="btn-copy">复制</button>
                 <pre><code class="language-python">import numpy as np
 
 def embed_lsb_watermark(pcm_signal_int16, secret_string_ascii):
@@ -165,6 +164,20 @@ extracted_signature = extract_lsb_watermark(watermarked_audio, payload_len)</cod
 
 [EXTRACT SUCCESS] 检测器解码退出 | 剥离还原的隐藏明文信息: 'MODEL_7B_#902'
 >>> [SIGNATURE_MATCH] 提取明文与黄金版权源 'MODEL_7B_#902' 实现 100% 正交完美重合，主动安全溯源核验闭环通过。</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 C++ 按位与或运算(Bitwise AND/OR)的 16-bit PCM 采样流时域最低有效位 LSB 隐写嵌入与一阶掩码提取器</h3>
+            <span class="tag">C++ Bitwise Kernel</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 利用数字化信号精度冗余构建全稳健的隐蔽信息通道。在 16位有符号整型单声道 PCM 波形流中，最高有效位（MSB）刚性控制波形宏观能量，而最末端的最低有效位（LSB）对应振幅变化仅占全局能量空间的 $1/65536$，沉淀于物理系统的天然噪底中。本算子完全聚焦于硬件指令层级。隐写时，利用 <code>& ~1</code> 二进制掩码将采样点末尾比特强行清零，随后并联 <code>| bit_to_hide</code> 算子将加密防伪字符串转换的一维比特流按时间轴步进覆写。逆向解调时，通过执行 <code>& 1</code> 高速位操作直接隔离并抽离 LSB 上的物理电平，采用左移位寄存器滚雪球式无损重组为高纯度版权数字签名，实现了零算力吞吐、不损伤原始语音 MOS 自然度的全闭环主动安全追溯防线</p>
+            
+            <div class="source-link-container">
+                <a href="/src/25_audio_watermarking/lsb_watermark_core.cpp" target="_blank" class="btn-view-source">📂 查看 C++ 底层比特移位音频水印算法源文件</a>
             </div>
         </div>
     </div>
