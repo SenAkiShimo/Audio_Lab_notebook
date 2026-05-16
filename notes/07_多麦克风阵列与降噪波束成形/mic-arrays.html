@@ -130,7 +130,7 @@ def simulate_linear_array_received_signals(num_mics=4, mic_distance=0.02, angle_
         
     return received_matrix, t
 
-# 🧬 启动空间采样多通道仿真流水线
+# 启动空间采样多通道仿真流水线
 # 配置一个包含 4 颗麦克风、等间距 2 厘米的线形阵列
 # 假设声音从右前方 45 度角斜向射入，声音基频为 1000Hz
 multichannel_pcm, time_axis = simulate_linear_array_received_signals(
@@ -151,6 +151,34 @@ multichannel_pcm, time_axis = simulate_linear_array_received_signals(
  -> 通道 Mic_2: 累计绝对时延: 83.19 μs | 折算离静输入样本点延迟: 1.3309 samples
  -> 通道 Mic_3: 累计绝对时延: 124.78 μs | 折算离散输入样本点延迟: 1.9964 samples
 >>> [DATA_INTEGRITY] 4x800 多通道离散声场空间样本对齐流生成成功，完全适配后续 GCC-PHAT 空间定位及波束合成算法输入规格。</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 C++ 连续内存步进指针的多麦克风硬件交错(Interleaved)二进制 PCM 裸流高效解复用分流算子</h3>
+            <span class="tag">C++ Hardware Interface</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 充当硬件声学采集设备向算法处理前端过渡的物理纽带。工业级多麦克风板卡（如基于 I2S/TDM 总线）在底层硬件级数据传输时，受限于内核 DMA 的串行限制，通常将各个声道的连续采样点强制交错交编织排列。本算子利用 C++ 的硬件级指针步进寻址，拆解交错序列。在单周期循环内将多声道混合裸流切开，并流式点乘缩放因子 $1/32768$，在内存中重组开辟多路独立、数据连续的单声道标准 Float32 矩阵特征通路，为后续空域算法提供刚性、干净的对齐数据底片。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/20_mic_arrays/interleaved_demux.cpp" target="_blank" class="btn-view-source">📂 查看 C++ 硬件级多通道交错 PCM 解复用算子源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 基于 MATLAB 空间对数相位差绝对值越界判决的空间混叠(Spatial Aliasing)临界频率退化模拟器</h3>
+            <span class="tag">MATLAB Physics Analytics</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 科学量化阵列物理几何尺寸在三维空间中允许无歧义采样的声学绝对最高上限频点。根据空间香农定理，当麦克风物理间距 $d$ 大于最高发音波长的一半 $\lambda/2$ 时，高频信号在相邻通道间制造的相对相位差会暴力击穿 $\pi$ 弧度决策限。本算子基于纯矩阵离散数理模型，模拟全角度空间扫频。一旦判定空间相位发生折返跃迁，立刻向特征矩阵施加对数级空间畸变惩罚项，全闭环解算出刚性混叠拐点 $F_{\text{critical}} = v / 2d$，从声学物理源头上对麦克风外壳构型设计的合理性提供把关。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/20_mic_arrays/spatial_aliasing_sim.m" target="_blank" class="btn-view-source">📂 查看 MATLAB 空间混叠采样限制仿真算子源文件</a>
             </div>
         </div>
     </div>
