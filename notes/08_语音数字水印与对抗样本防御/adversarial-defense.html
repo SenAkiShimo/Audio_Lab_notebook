@@ -141,5 +141,19 @@ safe_clean_audio = pipeline_guard.purify_input_audio(mock_poisoned_audio)</code>
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 Python(PyTorch) 随机高斯抖动混淆与 Float32 位深台阶量化有损截断的声学前置净化滤波器</h3>
+            <span class="tag">Python Input Purifier</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 由于对抗训练（Adversarial Training）需要极高的时间和算力成本，本系统采用低时延、高性能的前置声学净化滤波器。管道在音频被喂入 ASR/KWS 核心网络之前的毫秒间，第一阶段注入 $\pm 0.001$ 振幅范围的极微弱随机高斯抖动，使决策欺骗超平面发生物理偏转；第二阶段引入位深挤压算子（Bit-depth Squeezing），通过将实数连续幅值进行放大取整、硬性转化为粗颗粒度的离散量化台阶（Quantization Staircase）再缩回。利用取整截断效应将隐匿在高频微观、严密对齐的精细扰动噪声抹杀，在不损伤人类主观语义理解的前提下，低成本阻断劫持系统控制权</p>
+            
+            <div class="source-link-container">
+                <a href="/src/24_adversarial_defense/audio_purifier_pipeline.py" target="_blank" class="btn-view-source">📂 查看 Python 前置声学有损压缩净化解毒算子源文件</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

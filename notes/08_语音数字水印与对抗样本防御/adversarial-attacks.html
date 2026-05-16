@@ -27,7 +27,6 @@
 </head>
 <body class="sub-page">
 
-    <!-- 概念卡片：对抗攻击的本质 -->
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">一、 深度声学网络的空间脆弱性与对抗攻击初心</h3>
@@ -159,6 +158,34 @@ adv_audio_output = generate_fgsm_audio_attack(mock_clean_audio, target_label_idx
 >>> [BACKWARD_SIGNS] 误差激荡倒流完成，16000 维符号梯度算子生成成功。
 [ATTACK ENGINE] 梯度反向锚定完毕 | 扰动上限参数: 0.005
 >>> [ATTACK_SUCCESS] 对抗音频输出置信度核验：分类 [索引:2] 发生概率从 1.02% 暴增至 99.84%。攻击样本特征层超平面跃迁成功。</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 Python(PyTorch) 输入端叶子节点时域梯度追踪与定向有偏符号扰动(Targeted FGSM)生成算子</h3>
+            <span class="tag">Python White-box Attack</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 算法完全固定冻结全网络权重，通过强行激活一维时间波形输入序列的 <code>requires_grad_(True)</code> 标识，打开全局误差反向导数反演通路。针对目标特定恶意控制标签（Targeted Class）解算多分类交叉熵代价函数。误差梯度由 Softmax 层倒流激荡回最前端的 16000 维时域采样点，通过抽取梯度方向符号矩阵 $\text{sign}(\nabla_x J)$ 注入微幅 $\epsilon = 0.003$ 的有偏置微调。波形在时域幅值空间上的物理位移完全融入自然系统的底噪中，不破坏人类对原始语义的任何主观感知，但能强行将特征向量一阶踢过神经网络的分类超平面，实现恶意操控定向致盲</p>
+            
+            <div class="source-link-container">
+                <a href="/src/23_adversarial_attacks/fgsm_targeted_attack.py" target="_blank" class="btn-view-source">📂 查看 Python 时域白盒定向 FGSM 攻击算法源文件</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">二、 基于 MATLAB 高阶过采样调幅调制与电容式麦克风硬件二阶平方非线性(Square-law)差频自解调物理漏洞仿真器</h3>
+            <span class="tag">MATLAB Acoustic Weapon</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 绕过一切软件防火墙，直接针对多媒体数据采集物理层（Hardware Sensor Level）实施漏洞打击。本算法基于纯离散物理声学通信矩阵，仿真海豚音无声攻击（DolphinAttack）的硬件自复活级联过程。系统将恶意基带语音指令 $m(t)$ 通过常规双边带调幅技术（AM），强行调制到超越人耳绝对听觉上限的 25kHz 高频超声载波上，在空间空气中传播时保持绝对死寂。当这束无声能量撞击麦克风振膜，硬件前置放大器因大振幅激励触发二阶平方项非线性失真 $V_{\text{out}} = \alpha_1 V_{\text{in}} + \alpha_2 V_{\text{in}}^2$。数学展开项中的交叉积项 $(f_c - f_c)$ 在硬件内部凭空实现自解调，把高频载波剔除，强行使低频恶意命令在 ASIC 芯片滤波前死而复生送入 ASR</p>
+            
+            <div class="source-link-container">
+                <a href="/src/23_adversarial_attacks/ultrasonic_dolphin_attack.m" target="_blank" class="btn-view-source">📂 查看 MATLAB 无声海豚音超声波调制注入攻击源文件</a>
             </div>
         </div>
     </div>
