@@ -111,7 +111,7 @@ def compute_gcc_phat_angle(signal_1, signal_2, mic_distance=0.02, fs=16000):
     # 共轭矩阵保留了相互之间的相对相位偏移
     cross_power_spectrum = X1  np.conj(X2)
     
-    # 3. 🧬 核心算子核心：执行 PHAT 相位变换绝对白化归一化
+    # 3. 核心算子核心：执行 PHAT 相位变换绝对白化归一化
     # 振幅强行被除尽归一为 1，仅死死拦截并留存纯净的复数互相关相位信息
     # 添加 1e-9 防止低频无声区分母出现零溢出
     phat_weighting_filter = cross_power_spectrum / (np.abs(cross_power_spectrum) + 1e-9)
@@ -150,7 +150,7 @@ def compute_gcc_phat_angle(signal_1, signal_2, mic_distance=0.02, fs=16000):
     
     return estimated_angle_deg
 
-# 🧪 载入我们在前一篇 mic-arrays.html 中仿真生成的包含 45.0度 入射时延的多通道离散数据流
+# 载入我们在前一篇 mic-arrays.html 中仿真生成的包含 45.0度 入射时延的多通道离散数据流
 # 提取其中平行的两个紧邻麦克风通道流数据进行精细化对齐定位验证
 # 在实际工程中，multichannel_pcm 来自于真实的底层硬件 DMA 多通道环形缓冲区
 if 'multichannel_pcm' in locals():
@@ -178,6 +178,20 @@ else:
  -> 时域针状尖峰检测位于延迟步: 1 samples | 物理换算 TDOA: 62.50 μs
  -> 声源物理空间方位角解调完毕: 45.00°
 >>> [DECODE_VALIDATION] 空间夹角 45.00° 与多通道空间波阵面硬件射入角绝对重合，TDOA 盲扫跟踪系统收敛完成。</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 Python(PyTorch/NumPy) 交叉谱复数共轭内积与 PHAT 谱幅度全白化清洗的离散时延脉冲角度反调算子</h3>
+            <span class="tag">Python Signal Core</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 攻克室内环境中由于墙壁反复反射形成的多径多波束混响伪峰灾难，以及低频自相关过高导致的能量发散痛点。算子在纯矩阵向量空间运行，逐帧对双通路时域输入执行快速傅里叶变换（FFT），对两路频域复数阵列执行共轭相乘，提取出相对相位偏移量。核心引入广义互相关-相位变换（GCC-PHAT）算子，强行将复数谱的绝对模长模分母剔除归一为 1。该步白化（Whitening）滤波在数理上直接洗刷掉所有属于音色及宏观能量的振幅波动，仅拦截留存纯净的空域时间相位差。通过逆向快速傅里叶变换（IFFT）重返时域，使发散的波形塌陷会聚为一个锐利的时域冲击函数尖峰，通过最高峰格点解调出时延 $\tau$，反求反三角函数 $\theta = \arcsin(\tau v/d)$，精准截获发音人真实空间水平入射方位。」</p>
+            
+            <div class="source-link-container">
+                <a href="/src/22_ssl_processing/gcc_phat_localization.py" target="_blank" class="btn-view-source">📂 查看 Python 纯手写 GCC-PHAT 声源定位算法源文件</a>
             </div>
         </div>
     </div>

@@ -84,7 +84,7 @@
 
             <!-- Python 代码块 -->
             <div class="code-block-container">
-                <button class="btn-copy">📋 复制</button>
+                <button class="btn-copy">复制</button>
                 <pre><code class="language-python">import numpy as np
 
 def compute_mvdr_weights(multichannel_fft_data, target_angle_deg, mic_distance=0.02, fs=16000, freq_hz=1000.0):
@@ -108,7 +108,7 @@ def compute_mvdr_weights(multichannel_fft_data, target_angle_deg, mic_distance=0
         # 频域时移转相位旋转: exp(-j  2  pi  f  tau)
         d[m, 0] = np.exp(-1j  2  np.pi  freq_hz  tau)
         
-    # 2. 🧬 核心算子一：求解空间复数协方差矩阵 R_xx
+    # 2. 核心算子一：求解空间复数协方差矩阵 R_xx
     # R_xx = (X  X^H) / Snapshots。它死死记录了通道间由于强噪声引起的空间互相关畸变
     # np.conj().T 实现了复数矩阵的共轭转置 (Hermitian Transpose, H)
     R = np.dot(multichannel_fft_data, multichannel_fft_data.conj().T) / num_snapshots
@@ -117,10 +117,10 @@ def compute_mvdr_weights(multichannel_fft_data, target_angle_deg, mic_distance=0
     # 实际协方差可能病态不可逆，在对角线上加上微小的白噪声能量，确保求逆绝对绝对安全稳定
     R = R + 1e-6  np.eye(num_mics)
     
-    # 4. 🧬 核心算子二：对空间协方差矩阵执行复数求逆算子 (R^-1)
+    # 4. 核心算子二：对空间协方差矩阵执行复数求逆算子 (R^-1)
     R_inv = np.linalg.inv(R)
     
-    # 5. 🧬 核心算子三：根据 MVDR 终极拉格朗日公式拼装分子与分母
+    # 5. 核心算子三：根据 MVDR 终极拉格朗日公式拼装分子与分母
     # 分子 = R_inv  d
     numerator = np.dot(R_inv, d)
     # 分母 = d^H  R_inv  d (结果必须是一个标量实数)
@@ -136,7 +136,7 @@ def compute_mvdr_weights(multichannel_fft_data, target_angle_deg, mic_distance=0
     print(f"[MVDR_ENGINE] 频点 {freq_hz}Hz 自适应矩阵解算成功 | 约束核验 w^H  d = {np.dot(w_mvdr.conj().T, d)[0,0]:.2f}")
     return w_mvdr, filtered_fft
 
-# 🧪 启动自适应空域对消仿真流水线
+# 启动自适应空域对消仿真流水线
 # 假设 4通道阵列，采集到了 200 个时间快照数据
 mock_mics = 4
 mock_snapshots = 200
@@ -160,6 +160,20 @@ optimal_weights, clean_fft = compute_mvdr_weights(
 >>> [LA_INV_KERNEL] 硬件级高斯-约旦矩阵求逆成功，对数空间决定式收敛。
 [MVDR_ENGINE] 频点 1000Hz 自适应矩阵解算成功 | 约束核验 w^H  d = 1.00+0.00j
 >>> [NULLING_CAPTURE] 判定目标方位 0.00° 增益恒等于 0.00dB (无畸变全透传)；成功在右前方 62.4° 强干扰源方位自动扣出 -26.41dB 空间零点屏障，强定向噪声空间对消完毕。</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">一、 基于 MATLAB 复数矩阵共轭相乘求逆与拉格朗日目标方向零畸变硬约束最优复数权重解算算子</h3>
+            <span class="tag">MATLAB Linear-Algebra Core</span>
+        </div>
+        <div class="card-body">
+            <p><strong>理论简述：</strong> 打破固定波束成形在面对强方向性动态移动干扰源（如外放电视机、空调破音）时彻底失能的工程死穴。算法在 MATLAB 稠密复数空间运行，流式积算多通道频域快照的复数共轭外积，求解出空间协方差矩阵 $\mathbf{R}_{xx}$，以此对齐并捕捉各通道由于强定向强噪声污染引发的时空互相关畸变。为防范静音期矩阵秩亏病态不可逆引发的计算图奇点爆炸，算子并联挂载对角加载（Diagonal Loading）正则化防爆算子。利用约束最优化公式 $\mathbf{w} = (\mathbf{R}_{xx}^{-1}\mathbf{d}) / (\mathbf{d}^H\mathbf{R}_{xx}^{-1}\mathbf{d})$ 执行复数矩阵直接求逆投影。在锁定目标人声响应增益恒等于 $0\text{ dB}$（无畸变透传）的刚性前置边界下，自适应向强噪声源角度抠出低于负数分贝的<strong>空间零点（Nulling）</strong>阻绝屏障，实现空域干涉对消。</p>
+            
+            <div class="source-link-container">
+                <a href="/src/21_mvdr_processing/mvdr_adaptive_core.m" target="_blank" class="btn-view-source">📂 查看 MATLAB 纯复数矩阵求逆自适应 MVDR 算法源文件</a>
             </div>
         </div>
     </div>
